@@ -41,7 +41,7 @@ public class Property extends Space implements Buyable{
 	return _numHouses;
     }
 
-    public boolean isMonoply(){
+    public boolean isMonopoly(){
 	return _isMonopoly;
     }
 
