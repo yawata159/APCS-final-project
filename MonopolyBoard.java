@@ -34,4 +34,7 @@ public class MonopolyBoard{
 
 	_board[5] = new Railroad("Reading Railroad");
 	_board[15] = new Railroad("Pennsylvania Railroad");
-   
+   	_board[25] = new Railroad("B & O Railroad");
+   	_board[35] = new Railroad("Short Line");
+	}
+}
