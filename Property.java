@@ -48,7 +48,7 @@ public class Property extends Space implements Buyable{
     public int rent(){
 	int a=numHouses();
 	//Rent doubled in monopoly
-	if (a==0 && isMonoply())
+	if (a==0 && isMonopoly())
 	    return 2*_rents[0];
 
 	return _rents[a];
