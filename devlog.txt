@@ -1,0 +1,12 @@
+TO DO:
+- Utilities
+- Check if Player has a Monopoly
+- Community Chest, Chance
+- Jail, Free Parking
+- Houses,Hotels
+- Bankruptcy
+- Mortgage
+- 200
+
+FINISHED:
++ Board
