@@ -69,12 +69,14 @@ public class Player{
     public void buy(Buyable b){
 	b.bought(this);
 	_owned.add(b);
-	/*
 	if (b instanceof Railroad)
 	    _railroadsOwned++;
 	if (b instanceof Utility)
 	    _utilitiesOwned++;
-	*/
     }
 
+    /*
+    public void buyHouse(Property p){
+	if (mone
+    */
 }
