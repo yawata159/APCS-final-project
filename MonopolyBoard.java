@@ -6,13 +6,13 @@ public class MonopolyBoard{
 	//[ --> {
 	// .... Seriously Jalen
 	_board = new Space[40];
-	//Properties:  new Property(_price,name, house price, int[] rents)
+	//Properties:  new Property(int type,int price,String name,int[] rents)
 
 	_board[1] = new Property(1,60,"Mediterranean Avenue", new int[]{10,30,90,160,250});
 	_board[3] = new Property(1,60,"Baltic Avenue",new int[]{20,60,180,320,450});
 	_board[6] = new Property(2,100,"Oriental Avenue",new int[]{30,90,270,400,550});
 	_board[8] = new Property(2,100,"Vermont Avenue",new int[]{30,90,270,400,550});
-	_board[10] = new Property(2,120,"Connecticut Avenue",new int[]{40,100,300,450,600});
+	_board[9] = new Property(2,120,"Connecticut Avenue",new int[]{40,100,300,450,600});
 	_board[11] = new Property(3,140,"St. Charles Place",new int[]{50,150,450,625,750});
 	_board[13] = new Property(3,140,"States Avenue", new int[]{50,150,450,625,750});
 	_board[14] = new Property(3,160,"Virginia Avenue",new int[]{60,180,500,700,900});
