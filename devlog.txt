@@ -7,6 +7,9 @@ TO DO:
 - Bankruptcy
 - Mortgage
 - 200
+- Auctions? (If you land on a property and don't buy it, it's up for grabs)
+- Trades?
+- Start with $1,500
 
 FINISHED:
-+ Board
++ Board (properties)
