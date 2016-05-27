@@ -1,0 +1,15 @@
+TO DO:
+- Utilities
+- Check if Player has a Monopoly
+- Community Chest, Chance
+- Jail, Free Parking
+- Houses,Hotels
+- Bankruptcy
+- Mortgage
+- 200
+- Auctions? (If you land on a property and don't buy it, it's up for grabs)
+- Trades?
+- Start with $1,500
+
+FINISHED:
++ Board (properties)
