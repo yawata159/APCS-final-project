@@ -1,7 +1,4 @@
 TO DO:
-- Utilities
-- Check if Player has a Monopoly
-- Community Chest, Chance
 - Jail, Free Parking
 - Houses,Hotels
 - Bankruptcy
@@ -11,5 +8,13 @@ TO DO:
 - Trades?
 - Start with $1,500
 
+IN PROGRESS:
+- Utilities
+- Check if Player has a Monopoly
+- Graphics (Swing/AWT)
+- Community Chest, Chance
+
 FINISHED:
-+ Board (properties)
++ Properties
+
+
