@@ -8,6 +8,11 @@ public class ChanceCard3 implements ChanceCard{
     }
 
     public void action(Player p){
-      
+      if (abs(p.getIntPosition().CompareTo(12))<(p.getIntPosition().CompareTo(28)))
+            p.setPosition(board.getSpace(12));
+      else p.setPosition(board.getSpace(28));
+      if (!p.getPosition().isOwned())
+            p.buy();
+      //else dice x 10 
     }
 }
