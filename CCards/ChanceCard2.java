@@ -8,8 +8,7 @@ public class ChanceCard2 implements ChanceCard{
     }
 
     public void action(Player p){
-      //if (p.getPosition() > 11) p.addMoney(200);
-      //it would be cool if position has a number...
+      if (p.getIntPos() > 11) p.addMoney(200);
       p.setPosition(board.getSpace(11));
     }
 }
