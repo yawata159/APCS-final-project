@@ -1,6 +1,7 @@
-public class Space{
+public class Space implements Comparable{
 
     private String _name;
+    private int _pos;
 
     public Space(String name){
 	_name=name;
@@ -10,4 +11,17 @@ public class Space{
 	return _name;
     }
 
+    public void setPos(int pos){
+	pos=_pos;
+    }
+
+    public int getIntPos(){
+	return _pos;
+    }
+
+    public int compareTo(Object x){
+	if (!(x instanceof Space)) return -1;
+	Space x1=(Space)(x);
+	return _pos-x1._pos;
+    }
 }

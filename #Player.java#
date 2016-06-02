@@ -97,6 +97,7 @@ public class Player{
 	    int type=p.getType();
 	    if(checkMonopoly(type)){
 		_monopolies[type]=true;
+		for (Buyable b: _owned;
 		for (Property q: _owned)
 		    if (q.getType()==type)
 			q.setMonopoly();

@@ -41,14 +41,30 @@ public class Property extends Space implements Buyable{
 	return _numHouses;
     }
 
+    public void addHouse(){
+	if (numHouses()>=5){
+	    System.out.println("You already have the maximum number of houses");
+	    return;
+	}
+	_numHouses++;
+    }
+
     public boolean isMonopoly(){
 	return _isMonopoly;
+    }
+
+    public void setMonopoly(){
+	_isMonopoly=true;
+    }
+
+    public int getType(){
+	return _type;
     }
 
     public int rent(){
 	int a=numHouses();
 	//Rent doubled in monopoly
-	if (a==0 && isMonoply())
+	if (a==0 && isMonopoly())
 	    return 2*_rents[0];
 
 	return _rents[a];

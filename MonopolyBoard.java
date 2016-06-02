@@ -1,10 +1,13 @@
+import java.util.List;
+import java.util.ArrayList;
 public class MonopolyBoard{
     
     private Space[] _board;
+    private final int[] Properties={1,3,6,8,9,11,13,14,16,18,19,21,23,24,26,27,29,31,32,34,37,39};
+    private final int[] Railroads={5,15,25,35};
+    private final int[] Utilities={12,28};
     
     public MonopolyBoard(){
-	//[ --> {
-	// .... Seriously Jalen
 	_board = new Space[40];
 	//Properties:  new Property(int type,int price,String name,int[] rents)
 
@@ -32,9 +35,20 @@ public class MonopolyBoard{
 	_board[39] = new Property(8,400,"Boardwalk",new int[]{200,600,1400,1700,2000});	
 	//Railroads: 
 
+
 	_board[5] = new Railroad("Reading Railroad");
 	_board[15] = new Railroad("Pennsylvania Railroad");
    	_board[25] = new Railroad("B & O Railroad");
    	_board[35] = new Railroad("Short Line");
-	}
+	setPositions();
+    }
+
+    public void setPositions(){
+	for (int i=0;i<_board.getLength;i++)
+	    _board[i].setPos(i);
+    }
+
+    public Space getSpace(int pos){
+	return _board[pos];
+    }
 }
