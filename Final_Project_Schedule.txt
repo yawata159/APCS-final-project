@@ -1,0 +1,25 @@
+1. Exam 6/3
+     - heaps
+     - priority queue
+     - priority queue sort
+
+2. Final Project
+
+A.   Due Date : 6/13
+      - submit all code to : rick.platek@stuycs.org
+      - Subject : Final Project
+      - List all group members
+      - Include instructions on how to run your code.
+
+B.   Grading Rubric: (Listed in order)
+        i. Appropriate use of data structures
+       ii. Appropriate use of algorithms.
+      iii. Presentation.
+
+
+C.  Presentations start on 6/6.
+     - Each group has 10 minutes to present.
+     - I advise you to use a laptop for the presentation.
+     - In the presentation, please explain what data structures
+       were used and why. Discuss a least one major alogorithm.
+
