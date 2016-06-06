@@ -7,7 +7,6 @@ public class ChanceCard16 implements ChanceCard{
       return _id;
     }
 
-
     public void action(Player p){
         if (p.getIntPosition().CompareTo(5) < 0 && p.getIntPosition().CompareTo(35) > 0 )
             p.setPosition(board.getSpace(5));
