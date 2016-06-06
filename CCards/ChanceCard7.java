@@ -8,5 +8,6 @@ public class ChanceCard7 implements ChanceCard{
     }
 
     public void action(Player p){
+        p.setPosition(board.getSpace(p.getIntPosition() - 3));
     }
 }
