@@ -7,7 +7,18 @@ public class ChanceCard16 implements ChanceCard{
       return _id;
     }
 
-    public void action(Player p){
 
+    public void action(Player p){
+        if (p.getIntPosition().CompareTo(5) < 0 && p.getIntPosition().CompareTo(35) > 0 )
+            p.setPosition(board.getSpace(5));
+        else if (p.getIntPosition().CompareTo(15) < 0)
+            p.setPosition(board.getSpace(15));
+        else if (p.getIntPosition().CompareTo(25) < 0)
+            p.setPosition(board.getSpace(25));
+        else
+            p.setPosition(board.getSpace(35));
+        if (!p.getPosition().isOwned())
+            p.buy();
+        //else  pay twice the rent
     }
 }
