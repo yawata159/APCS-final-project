@@ -1,8 +1,5 @@
-public class Property extends Space implements Buyable{
+public class Property extends Buyable{
 
-    private int _price;
-    private boolean _owned;
-    private Player _owner;
     private int _housePrice;
     private int _numHouses;
     //private boolean _isHotel;
@@ -11,28 +8,13 @@ public class Property extends Space implements Buyable{
     private boolean _isMonopoly;
 
     public Property(int type, int price, String name, int[] rents){
-	super(name);
-	_price=price;
-	_owned=false;
-	_owner=null;
+	super(name, price);
 	_housePrice=50*(1+(type-1)/2);
 	_rents=rents;
 	_type=type;
 	_isMonopoly=false;
     }
     
-    public int getPrice(){
-	return _price;
-    }
-
-    public boolean isOwned(){
-	return _owned;
-    }
-
-    public Player owner(){
-	return _owner;
-    }
-
     public int housePrice(){
 	return _housePrice;
     }
@@ -41,12 +23,13 @@ public class Property extends Space implements Buyable{
 	return _numHouses;
     }
 
-    public void addHouse(){
+    public boolean addHouse(){
 	if (numHouses()>=5){
 	    System.out.println("You already have the maximum number of houses");
-	    return;
+	    return false;
 	}
 	_numHouses++;
+	return true;
     }
 
     public boolean isMonopoly(){
@@ -71,9 +54,20 @@ public class Property extends Space implements Buyable{
     }
 
     public void bought(Player buyer){
-	_owned=true;
+	_isOwned=true;
 	_owner=buyer;
-	
+    }
+
+    public void land(Player p){
+	if (isOwned()){
+	    p.addMoney((-1)*rent());
+	    owner().addMoney(rent());
+	}
+	else{
+	    /*
+	      Ask to buy
+	    */
+	}
     }
 }
 

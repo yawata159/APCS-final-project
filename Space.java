@@ -1,7 +1,7 @@
-public class Space implements Comparable{
+public abstract class Space implements Comparable{
 
-    private String _name;
-    private int _pos;
+    protected String _name;
+    protected int _pos;
 
     public Space(String name){
 	_name=name;
@@ -24,4 +24,6 @@ public class Space implements Comparable{
 	Space x1=(Space)(x);
 	return _pos-x1._pos;
     }
+
+    public abstract void land(Player p);
 }

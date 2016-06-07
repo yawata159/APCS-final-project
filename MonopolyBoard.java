@@ -3,14 +3,17 @@ import java.util.ArrayList;
 public class MonopolyBoard{
     
     private Space[] _board;
-    private final int[] Properties={1,3,6,8,9,11,13,14,16,18,19,21,23,24,26,27,29,31,32,34,37,39};
-    private final int[] Railroads={5,15,25,35};
-    private final int[] Utilities={12,28};
+    private final int[] _PROPERTY_POSITIONS={1,3,6,8,9,11,13,14,16,18,19,21,23,24,26,27,29,31,32,34,37,39};
+    private final int[] _RAILROAD_POSITIONS={5,15,25,35};
+    private final int[] _UTILITY_POSITIONS={12,28};
+    private ArrayList<Property> _properties;
+    private ArrayList<Railroad> _railroads;
+    private ArrayList<Utility> _utilities;
     
     public MonopolyBoard(){
 	_board = new Space[40];
-	//Properties:  new Property(int type,int price,String name,int[] rents)
 
+	//Properties:  new Property(int type,int price,String name,int[] rents)
 	_board[1] = new Property(1,60,"Mediterranean Avenue", new int[]{10,30,90,160,250});
 	_board[3] = new Property(1,60,"Baltic Avenue",new int[]{20,60,180,320,450});
 	_board[6] = new Property(2,100,"Oriental Avenue",new int[]{30,90,270,400,550});
@@ -33,22 +36,70 @@ public class MonopolyBoard{
 	_board[34] = new Property(7,320,"Pennsylvania Avenue",new int[]{150,450,1000,1200,1400});
 	_board[37] = new Property(8,350,"Park Place",new int[]{175,500,1100,1300,1500});
 	_board[39] = new Property(8,400,"Boardwalk",new int[]{200,600,1400,1700,2000});	
+
 	//Railroads: 
-
-
 	_board[5] = new Railroad("Reading Railroad");
 	_board[15] = new Railroad("Pennsylvania Railroad");
    	_board[25] = new Railroad("B & O Railroad");
    	_board[35] = new Railroad("Short Line");
-	setPositions();
-    }
 
-    public void setPositions(){
-	for (int i=0;i<_board.getLength;i++)
-	    _board[i].setPos(i);
+	//Utilities:
+	_board[12]=new Utility("Electric Company");
+	_board[28]=new Utility("Water Works");
+
+	//CommunityChest and Chance
+	_board[2]=new CommunityChest();
+	_board[33]=new CommunityChest();
+	_board[7]=new Chance();
+	_board[22]=new Chance();
+
+	//Others:
+	_board[4]=new IncomeTax();
+	_board[10]=new Jail();
+	_board[20]=new FreeParking();
+	_board[30]=new GoToJail();
+	_board[38]=new LuxuryTax();
+
+	setPositions();
+	setProperties();
+	setRailroads();
+	setUtilities();
     }
 
     public Space getSpace(int pos){
 	return _board[pos];
     }
+
+    public void setPositions(){
+	for (int i=0;i<_board.length;i++)
+	    _board[i].setPos(i);
+    }
+
+    public void setProperties(){
+	for (int x: _PROPERTY_POSITIONS)
+	    _properties.add((Property)(_board[x]));
+    }
+
+    public void setRailroads(){
+	for (int x: _RAILROAD_POSITIONS)
+	    _railroads.add((Railroad)(_board[x]));
+    }
+
+    public void setUtilities(){
+	for (int x: _UTILITY_POSITIONS)
+	    _utilities.add((Utility)(_board[x]));
+    }
+
+    public ArrayList<Property> getProperties(){
+	return _properties;
+    }
+
+    public ArrayList<Railroad> getRailroads(){
+        return _railroads;
+    }
+
+    public ArrayList<Utility> getUtilities(){
+        return _utilities;
+    }
+
 }

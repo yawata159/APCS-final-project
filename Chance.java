@@ -1,11 +1,27 @@
+import java.util.LinkedList;
+import java.util.List;
+;
 public class Chance extends Space{
 
-    private static ArrayList<ChanceCard> cards;
+    private static LinkedList<ChanceCard> _cards;
+    private String _name;
+    private int pos;
 
     public Chance(){
-	cards = new ArrayList<ChanceCard>();
-	for (int i = 0; i < 16; i++){
-	    cards[i] = new ChanceCard(i);
-	}
+	super("Chance");
+	/*
+	Instantiate _cards
+	*/
+    }
+
+    public ChanceCard chanceCard(){
+	ChanceCard c=_cards.removeFirst();
+	_cards.addLast(c);
+	return c;
+    }
+
+    public void landed(Player p){
+	ChanceCard c=chanceCard();
+	c.action(p);
     }
 }
