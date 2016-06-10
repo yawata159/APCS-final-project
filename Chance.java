@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
-;
+
 public class Chance extends Space{
 
     private static LinkedList<ChanceCard> _cards;
