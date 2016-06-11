@@ -1,29 +1,30 @@
-public class Utility extends Space implements Buyable{
+public class Utility extends Buyable{
     
-    private final int _price 150;
+    private final int _price=150;
     private boolean _owned;
-    private Player _ owner;
+    private Player _owner;
     private boolean _bothOwned;
     //private final int[] _rents = {4,10}
 
 
-    public Utility(){}
+    public Utility(String name){
+	super(name,150);
+    }
 
 
     public int rent(int dice){
-	if (bothOwned) return 10 * dice;
+	if (_bothOwned) return 10 * dice;
 	else return 4*dice;
     }
 
-    public boolean isOwned(){
-	return _owned;
+    public void land(Player p){
+	if (isOwned()){
+            int x=owner().railroadsOwned();
+            int rent=rent(x);
+            p.addMoney((-1)*x);
+            owner().addMoney(x);
+        }
+        else{}
     }
 
-    public Player owner(){
-	return _owner;
-    }
-
-    public void bought(Player P){
-	_owned = true;
-	_owner = P;
-    }
+}

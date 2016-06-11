@@ -1,10 +1,20 @@
-public class Space implements Comparable{
+public abstract class Space{
 
-    private String _name;
-    private int _pos;
+    protected String _name;
+    protected int _pos;
+    protected MonopolyGame _g;
 
     public Space(String name){
 	_name=name;
+	_g=null;//OVERWRITTEN LATER --> lack of developmental foresight, ,
+    }
+
+    public void setGame(MonopolyGame g){
+	_g=g;
+    }
+
+    public MonopolyGame getGame(){
+	return _g;
     }
 
     public String getName(){
@@ -24,4 +34,6 @@ public class Space implements Comparable{
 	Space x1=(Space)(x);
 	return _pos-x1._pos;
     }
+
+    public abstract void land(Player p);
 }

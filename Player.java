@@ -3,6 +3,7 @@ import java.util.List;
 
 public class Player{
 
+    private MonopolyGame _game;//Through game access is granted to board and other things
     private String _name;//idea: avatar, puuppy , flower, arrow
     private int _money;
     private Space _position;
@@ -10,8 +11,10 @@ public class Player{
     private ArrayList<Buyable> _owned;
     private int _railroadsOwned;
     private int _utilitiesOwned;
+    private boolean _inJail;
 
-    public Player(String name, int money){
+    public Player(String name, int money, MonopolyGame g){
+	_game=g;
 	_name=name;
 	_money=money;
 	_position=null;
@@ -51,6 +54,15 @@ public class Player{
 	return _utilitiesOwned;
     }
 
+    public boolean inJail(){
+	return _inJail;
+    }
+
+    public void goToJail(){
+	setPosition(_game.getBoard().getSpace(30));
+	_inJail=true;
+    }
+
     //money can be <0
     public void addMoney(int money){
 	_money+=money;
@@ -70,7 +82,8 @@ public class Player{
 	    System.out.println("This position is not buyable");
 	    return;
 	}
-	Buyable position1=(Buyable)(position());
+	Buyable pos1=(Buyable)(position());
+	buy(pos1);
     }
 
     public boolean checkMonopoly(int type){
@@ -97,9 +110,10 @@ public class Player{
 	    int type=p.getType();
 	    if(checkMonopoly(type)){
 		_monopolies[type]=true;
-		for (Property q: _owned)
+		for (Property q: _game.getBoard().getProperties()){
 		    if (q.getType()==type)
 			q.setMonopoly();
+		}
 	    }
 	}
 	if (b instanceof Railroad)
@@ -108,8 +122,12 @@ public class Player{
 	    _utilitiesOwned++;
     }
 
-    /*
     public void buyHouse(Property p){
-	if (mone
-    */
+	if (_money<p.housePrice()){
+            System.out.println("Not enough money");
+            return;
+        }
+	if (p.addHouse()) addMoney((-1)*p.housePrice());
+    }
+
 }
