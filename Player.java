@@ -60,6 +60,10 @@ public class Player{
     public Space position(){
 	return _position;
     }
+    
+    public int getIntPos(){
+    	return postition().getIntPos();
+    }
 
     public ArrayList<Buyable> ownings(){
 	return _owned;
