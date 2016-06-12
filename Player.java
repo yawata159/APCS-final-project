@@ -157,6 +157,19 @@ public class Player{
 	if (p.addHouse()) addMoney((-1)*p.housePrice());
     }
 
+    public int[] numHousesAndHotels(){
+    	int ret[]=new int[2];
+    	for (Buyable b: ownings()){
+	    if (b instanceof Property){ 
+	    	Property p=(Property)(b);
+	    	int x=p.numHouses();
+	    	if (x<5) ret[0]+=x;
+	    	else ret[1]+=1; //Hotel
+	    	}
+    	}
+    return ret;
+    }
+  
     //just for debugging
     public String toString() {
 	return _name;
