@@ -47,12 +47,10 @@ public abstract class ChanceCard{
       cards.add(new Card7(7,"Go Back 3 Spaces."));
       cards.add(new Card8(8, "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200"));
       cards.add(new Card9(9,"Make general repairs on all your property - For each house pay $25 - For each hotel $100"));
-      //didn't count houses
       cards.add(new Card10(10,"Pay poor tax of $15."));
       cards.add(new Card11(11,"Take a trip to Reading Railroad - If you pass Go, collect $200"));
       cards.add(new Card12(12,"Take a walk on the Boardwalk - Advance token to Boardwalk"));
       cards.add(new Card13(13,"You have been elected Chairman of the Board - Pay each player $50"));
-      //didn't
       cards.add(new Card14(14,"Your building loan matures. Collect $150."));
       cards.add(new Card15(15,"You have won a crossword competition - Collect $100."));
       cards.add(new Card16(16,"Advance token to the nearest Railroad and pay owner twice the rental to which he/she {he} is otherwise entitled. If Railroad is unowned, you may buy it from the Bank."));
@@ -179,7 +177,7 @@ public abstract class ChanceCard{
       
       public void action(Player p){
         p.setPosition(ChanceCard.getGame().getBoard().getSpace(30));
-        ChanceCard.getGame().getBoard().getSpace(30]).land(p);
+        ChanceCard.getGame().getBoard().getSpace(30).land(p);
     }
     }
     public static class Card9 extends ChanceCard{
@@ -189,7 +187,9 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-        //house count
+        int pay = p.numHousesAndHotels()[0] * 25 + p.numHousesAndHotels()[1] * 100;
+        p.addMoney(-1 * pay);
+        FreeParking.add(pay);
     }
     }
     public static class Card10 extends ChanceCard{
