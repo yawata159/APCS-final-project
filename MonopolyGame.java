@@ -96,6 +96,19 @@ public class MonopolyGame{
 	return _players;
     }
 
+    public void playerTurn(Player p) {
+	
+	Space s = p.position();
+	//check if in special state (i.e. jail):
+	
+	
+	//else check what kind of space s is:
+	
+	
+	//text for space action (bretween actions)
+    }
+
+
     public static void main(String[] args)  throws FileNotFoundException{
 	MonopolyGame G = new MonopolyGame(); 
 	
@@ -106,7 +119,7 @@ public class MonopolyGame{
 	while (!G.isThereAWinner()) {
 	    System.out.print(RESET);
 	    
-	    //display map
+	    //display crap
 	    G.getMap().printMap();
 	    System.out.println();
 	    
@@ -122,9 +135,8 @@ public class MonopolyGame{
 	    currPlayer.setPosition(newPos);
 	    
 	    // space action:
-	    
-	    //text for space action (bretween actions)
-	    
+	    playerTurn(currPlayer);
+
 	    //end turn
 	}
 	
@@ -132,11 +144,3 @@ public class MonopolyGame{
 
 }
 	
-
-//init
-//
-//1 place players go
-//2 internal turn
-//3 clear players
-//4 place players (updated for that 1 palyer)
-//go to 1
