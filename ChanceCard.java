@@ -91,7 +91,7 @@ public abstract class ChanceCard{
       public void action(Player p){
         if (p.getIntPosition() > 11) p.addMoney(200);
         p.setPosition(ChanceCard.getGame().getBoard().getSpace(11));
-        (ChanceCard.getGame().getBoard())[11].land(p);
+        (ChanceCard.getGame().getBoard()).getSpace(11).land(p);
       }
     }
     
@@ -167,7 +167,7 @@ public abstract class ChanceCard{
       
       public void action(Player p){
         p.setPosition(ChanceCard.getGame().getBoard().getSpace(p.getIntPosition() - 3));
-        ChanceCard.getGame().getBoard()[ChanceCard.getGame().getBoard().getSpace(p.getIntPosition() - 3)].land(p);
+        ChanceCard.getGame().getBoard().getSpace(ChanceCard.getGame().getBoard().getSpace(p.getIntPosition() - 3)).land(p);
     }
     }
     
@@ -179,7 +179,7 @@ public abstract class ChanceCard{
       
       public void action(Player p){
         p.setPosition(ChanceCard.getGame().getBoard().getSpace(30));
-        ChanceCard.getGame().getBoard()[30].land(p);
+        ChanceCard.getGame().getBoard().getSpace(30]).land(p);
     }
     }
     public static class Card9 extends ChanceCard{
@@ -212,7 +212,7 @@ public abstract class ChanceCard{
       public void action(Player p){
       if (p.getIntPosition() > 5) p.addMoney(200);
       p.setPosition(ChanceCard.getGame().getBoard().getSpace(5));
-      ChanceCard.getGame().getBoard()[5].land(p);
+      ChanceCard.getGame().getBoard().getSpace(5).land(p);
     }
     }
     public static class Card12 extends ChanceCard{
@@ -223,7 +223,7 @@ public abstract class ChanceCard{
       
       public void action(Player p){
         p.setPosition(ChanceCard.getGame().getBoard().getSpace(39));
-        ChanceCard.getGame().getBoard()[39].land(p);
+        ChanceCard.getGame().getBoard().getSpace(39).land(p);
     }
     }
     public static class Card13 extends ChanceCard{
