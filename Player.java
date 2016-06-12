@@ -11,9 +11,11 @@ public class Player{
     private ArrayList<Buyable> _owned;
     private int _railroadsOwned;
     private int _utilitiesOwned;
-    private boolean _inJail;
-
-    public Player(String name, int money, MonopolyGame g){
+    private boolean _inJail; 
+    private char _avatar; //displayed in the terminal
+    
+    
+    public Player(String name, int money, char avatar, MonopolyGame g){
 	_game=g;
 	_name=name;
 	_money=money;
@@ -24,10 +26,18 @@ public class Player{
 	_owned=new ArrayList<Buyable>();
 	_railroadsOwned=0;
 	_utilitiesOwned=0;
+	_avatar = avatar;
     }
 
     public String name(){
 	return _name;
+    }
+
+    public char getAvatar() {
+	return _avatar;
+    }
+    public void setAvatar(char c) {
+	_avatar = c;
     }
 
     public int money(){
