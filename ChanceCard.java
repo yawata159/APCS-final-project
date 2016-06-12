@@ -44,16 +44,15 @@ public abstract class ChanceCard{
       cards.add(new Card4(4,"Advance token to the nearest Railroad and pay owner twice the rental to which he/she {he} is otherwise entitled. If Railroad is unowned, you may buy it from the Bank."));
       cards.add(new Card5(5,"Bank pays you dividend of $50."));
       cards.add(new Card6(6,"Get out of Jail Free - This card may be kept until needed, or traded/sold"));
-      //didn't write this
       cards.add(new Card7(7,"Go Back 3 Spaces."));
       cards.add(new Card8(8, "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200"));
-      //should check this
       cards.add(new Card9(9,"Make general repairs on all your property - For each house pay $25 - For each hotel $100"));
       //didn't count houses
       cards.add(new Card10(10,"Pay poor tax of $15."));
       cards.add(new Card11(11,"Take a trip to Reading Railroad - If you pass Go, collect $200"));
       cards.add(new Card12(12,"Take a walk on the Boardwalk - Advance token to Boardwalk"));
       cards.add(new Card13(13,"You have been elected Chairman of the Board - Pay each player $50"));
+      //didn't
       cards.add(new Card14(14,"Your building loan matures. Collect $150."));
       cards.add(new Card15(15,"You have won a crossword competition - Collect $100."));
       cards.add(new Card16(16,"Advance token to the nearest Railroad and pay owner twice the rental to which he/she {he} is otherwise entitled. If Railroad is unowned, you may buy it from the Bank."));
@@ -156,7 +155,7 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-        //getting out of jail
+        p.pickGetOutOfJailFreeCard();
     }
     }
   
@@ -201,7 +200,7 @@ public abstract class ChanceCard{
       
       public void action(Player p){
         p.addMoney(-15);
-        FreeParking.addMoney(15);
+        FreeParking.add(15);
     }
     }
     public static class Card11 extends ChanceCard{
