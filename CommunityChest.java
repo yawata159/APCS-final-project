@@ -3,25 +3,35 @@ import java.util.List;
 
 public class CommunityChest extends Space{
 
-    private static LinkedList<CommunityCard> _cards;
-    private String _name;
-    private int pos;
+    private static LinkedList<CommunityChestCard> _cards;
+    private static int _drawn;
 
     public CommunityChest(){
-	super("Community Chest");
-	/*
-	Instantiate _cards
-	*/
+	super("CommunityChest");
+	_drawn=0;
+	_cards=CommunityCard.createCards();
+	CommuityChestCard.setGame(getGame());
     }
 
-    public CommunityCard communityCard(){
-	CommunityCard c=_cards.removeFirst();
+    public CommunityCard communityChestCard(){
+	_drawn++;
+	CommunityChestCard c=_cards.removeFirst();
 	_cards.addLast(c);
+	if (_drawn==_cards.size()){
+	    _drawn=0;
+	    shuffle();
+	}
 	return c;
     }
 
+    public static void shuffle(){
+	//
+	//
+	//
+    }
+
     public void land(Player p){
-	CommunityCard c=communityCard();
+	CommunityChestCard c=communityChestCard();
 	c.action(p);
     }
 }
