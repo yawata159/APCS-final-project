@@ -102,7 +102,7 @@ public class MonopolyGame{
 	//check if in special state (i.e. jail):
 	
 	
-	//else check what kind of space s is:
+	//else check what kind of space s is and do the action corresponding to it:
 	
 	
 	//text for space action (bretween actions)
@@ -112,7 +112,6 @@ public class MonopolyGame{
     public static void main(String[] args)  throws FileNotFoundException{
 	MonopolyGame G = new MonopolyGame(); 
 	
-	//set player positions to go
 	
 	int playerIndex = -1; 
 
