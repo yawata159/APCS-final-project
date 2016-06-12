@@ -12,6 +12,7 @@ public class Player{
     private int _railroadsOwned;
     private int _utilitiesOwned;
     private boolean _inJail; 
+    private int _getOutOfJailFreeCards;
     private char _avatar; //displayed in the terminal
     private int _color; //see above
     
@@ -70,6 +71,14 @@ public class Player{
 
     public int utilitiesOwned(){
 	return _utilitiesOwned;
+    }
+
+    public int numGetOutOfJailFreeCards(){
+        return _getOutOfJailFreeCards;
+    }
+
+    public void pickGetOutOfJailFreeCard(){
+        _getOutOfJailFreeCards++;
     }
 
     public boolean inJail(){
