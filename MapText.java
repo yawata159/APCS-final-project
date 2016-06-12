@@ -3,16 +3,18 @@ import java.io.*;
 
 public class MapText {
 
-    private static final String CLEAR = "0m";
-    private static final String RED = "[41m";
-    private static final String YELLOW = "[43m";
-    private static final String GREEN = "[42m";
-    private static final String BLUE = "[44m";
-    private static final String GRAY = "[41m"; //
-    private static final String CYAN = "[46m";
-    private static final String MAGENTA = "[45m";
-    private static final String BLACK = "[40m";
+    private static final String CLEAR = "[0m";
+
+    private static final int RED = 41;
+    private static final int YELLOW = 43;
+    private static final int GREEN = 42;
+    private static final int BLUE = 44;
+    private static final int WHITE = 47; //for brown
+    private static final int CYAN = 46;
+    private static final int MAGENTA = 45;
+    private static final int BLACK = 40; //for orange
     
+    private static final String RESET = "[2J";
 
     // 6 PLAYERS
     // row,col
@@ -24,9 +26,60 @@ public class MapText {
 	{5,148},{12,148},{18,148},{22,148},{28,148},{33,148},{37,148},{43,148},{50,148},{56,148} //5,148:gotojail
     };
     
-    //row,col,length,id
-    private static final Integer[][][][] BGRND_COLOR = 
-    {};
+    //top row: i=6, values are col numbers
+    private static final Integer[] RED_BGRND = {
+	17,18,19,20,21,22,23,24,25,26,27,28,29, //kentucky
+	45,46,47,48,49,50,51,52,53,54,55,56,57, //indiana
+	59,60,61,62,63,64,65,66,67,68,69,70,71 //illinois
+    };
+
+    //top row: i=6, values are col numbers    
+    private static final Integer[] YELLOW_BGRND = {
+	87,88,89,90,91,92,93,94,95,96,97,98,99, //atlantic
+	101,102,103,104,105,106,107,108,109,110,111,112,113, //ventinor
+	129,130,131,132,133,134,135,136,137,138,139,140,141 //marvin	
+    };
+
+    //bottom row: i=58, values are col numbers
+    private static final Integer[] CYAN_BGRND = {
+	17,18,19,20,21,22,23,24,25,26,27,28,29, //connecticut
+	31,32,33,34,35,36,37,38,39,40,41,42,43, //vermont
+	59,60,61,62,63,64,65,66,67,68,69,70,71 //oriental
+    };
+
+    //bottom row: i=58, values are col numbers
+    private static final Integer[] WHITE_BGRND = {
+	101,102,103,104,105,106,107,108,109,110,111,112,113, //baltic
+	129,130,131,132,133,134,135,136,137,138,139,140,141  //mediterranean
+    };
+    
+    //left column: j=15, values are row numbers
+    private static final Integer[] BLACK_BGRND = { 
+	8,9,10,11,12, //new york
+	14,15,16,17,18, //tennessee
+	24,25,26,27,28 // st james
+    };
+    
+    //left column: j=15, values are row numbers
+    private static final Integer[] MAGENTA_BGRND = {
+	35,36,37,38,39, // virginia
+	41,42,43,44,45, //states
+	52,53,54,55,56 //st charles
+    };
+
+    //right column: j=143, values are row numbers
+    private static final Integer[] GREEN_BGRND = {
+	8,9,10,11,12, //pacific
+	14,15,16,17,18, //north carolina
+	24,25,26,27,28 // pennsylvania
+    };
+
+    //right column: j=143, values are row numbers
+    private static final Integer[] BLUE_BGRND = {
+	39,40,41,42,43, //park place
+	52,53,54,55,56 //boarwalk
+    };
+
 
     private ArrayList<ArrayList<Character>> boardLines;
 
@@ -44,21 +97,61 @@ public class MapText {
 	
     }
 
+    /*PRIVATE FUNCTIONS*/
+    private static String backgroundColor(int n) {
+	return "[" + n + "m";
+    }
+
+    private static int binarySearch(Integer[] arr, Integer key) {
+	int low = 0;
+	int high = arr.length -1;
+	while (low <= high) {
+	    int mid = low + (high-low)/2;
+	    if (key < arr[mid]) high = mid-1;
+	    else if (key > arr[mid]) low = mid+1;
+	    else return mid;
+	}
+	return -1;
+    }
+
+
+    /*MODIFIERS*/
     private char changeChar(int row, int col, char c){
 	char ans = boardLines.get(row).get(col);
 	boardLines.get(row).set(col,c);
 	return ans;
     }
 
-    //TODO : add in color/player proc
-    private void printMap() {
-	for (ArrayList<Character> line : boardLines) {
-	    String s = "";
-	    for (Character c : line) s += c.toString();
-	    System.out.println(s);
+    public void printMap() {
+
+	for (int i = 0; i < boardLines.size(); i++) {
+	    for (int j = 0 ; j < boardLines.get(i).size();j++) {
+		if (i == 6) { //top
+		    if (binarySearch(RED_BGRND,j) != -1) System.out.print(backgroundColor(RED));
+		    else if (binarySearch(YELLOW_BGRND,j) != -1) System.out.print(backgroundColor(YELLOW));
+		}
+		if (i == 58) { //bottom
+		    if (binarySearch(CYAN_BGRND,j) != -1) System.out.print(backgroundColor(CYAN));
+		    else if (binarySearch(WHITE_BGRND,j) != -1) System.out.print(backgroundColor(WHITE));
+		}
+		
+		if (j == 15) { //left
+		    if (binarySearch(BLACK_BGRND,i) != -1) System.out.print(backgroundColor(BLACK));
+		    else if (binarySearch(MAGENTA_BGRND,i) != -1) System.out.print(backgroundColor(MAGENTA));
+		}
+		if (j == 143) { //right
+		    if (binarySearch(GREEN_BGRND,i) != -1) System.out.print(backgroundColor(GREEN));
+		    else if (binarySearch(BLUE_BGRND,i) != -1) System.out.print(backgroundColor(BLUE));
+		}
+		System.out.print(boardLines.get(i).get(j));
+		System.out.print(CLEAR);
+	    }
+	    System.out.println();
+	    
 	}
+	
     }
-    
+
     private static ArrayList<Character> charArrayList(String s) {
 	ArrayList<Character> chars = new ArrayList<Character>();
 	for (char c : s.toCharArray()) chars.add(c);
@@ -67,10 +160,9 @@ public class MapText {
 
     public static void main(String[] args) throws FileNotFoundException{
 	MapText G = new MapText();
-	G.changeChar(0,0,'+');
-	System.out.println(G.FIRST_PLAYER_POS.length);
-	//G.printMap();
-	
+	//G.changeChar(0,0,'+');
+	G.printMap();
+			   
     }
 
 }
