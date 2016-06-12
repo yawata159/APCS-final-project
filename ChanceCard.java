@@ -91,7 +91,7 @@ public abstract class ChanceCard{
       public void action(Player p){
         if (p.getIntPosition() > 11) p.addMoney(200);
         p.setPosition(ChanceCard.getGame().getBoard().getSpace(11));
-        ChanceCard.getGame().getBoard()[11].land(p);
+        (ChanceCard.getGame().getBoard())[11].land(p);
       }
     }
     
@@ -233,7 +233,11 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-        //pay each player $50
+         for (Player p1: ChanceCard.getGame().getPlayers())
+                if (p1!=p){
+                    p1.addMoney(50);
+                    p.addMoney(-50);
+                }
       }
     }
     public static class Card14 extends ChanceCard{
