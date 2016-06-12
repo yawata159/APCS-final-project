@@ -75,7 +75,7 @@ public abstract class ChanceCard{
       }
       
      public void action(Player p){
-      if (p.getIntPosition() > 24) p.addMoney(200);
+      if (p.getIntPos() > 24) p.addMoney(200);
       p.setPosition(ChanceCard.getGame().getBoard().getSpace(24));
     }
     }
@@ -87,7 +87,7 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-        if (p.getIntPosition() > 11) p.addMoney(200);
+        if (p.getIntPos() > 11) p.addMoney(200);
         p.setPosition(ChanceCard.getGame().getBoard().getSpace(11));
         (ChanceCard.getGame().getBoard()).getSpace(11).land(p);
       }
@@ -99,7 +99,7 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-      if (abs(p.getIntPosition().CompareTo(12))<(p.getIntPosition().CompareTo(28)))
+      if (abs(p.getIntPos().CompareTo(12))<(p.getIntPos().CompareTo(28)))
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(12));
       else p.setPosition(ChanceCard.getGame().getBoard().getSpace(28));
       if (!((Buyable)p.position()).isOwned())
@@ -118,11 +118,11 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-        if (p.getIntPosition().CompareTo(5) < 0 && p.getIntPosition().CompareTo(35) > 0 )
+        if (p.getIntPos().CompareTo(5) < 0 && p.getIntPos().CompareTo(35) > 0 )
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(5));
-        else if (p.getIntPosition().CompareTo(15) < 0)
+        else if (p.getIntPos().CompareTo(15) < 0)
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(15));
-        else if (p.getIntPosition().CompareTo(25) < 0)
+        else if (p.getIntPos().CompareTo(25) < 0)
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(25));
         else
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(35));
@@ -164,8 +164,8 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-        p.setPosition(ChanceCard.getGame().getBoard().getSpace(p.getIntPosition() - 3));
-        ChanceCard.getGame().getBoard().getSpace(ChanceCard.getGame().getBoard().getSpace(p.getIntPosition() - 3)).land(p);
+        p.setPosition(ChanceCard.getGame().getBoard().getSpace(p.getIntPos() - 3));
+        ChanceCard.getGame().getBoard().getSpace(ChanceCard.getGame().getBoard().getSpace(p.getIntPos() - 3)).land(p);
     }
     }
     
@@ -210,7 +210,7 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-      if (p.getIntPosition() > 5) p.addMoney(200);
+      if (p.getIntPos() > 5) p.addMoney(200);
       p.setPosition(ChanceCard.getGame().getBoard().getSpace(5));
       ChanceCard.getGame().getBoard().getSpace(5).land(p);
     }
@@ -267,11 +267,11 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-        if (p.getIntPosition().CompareTo(5) < 0 && p.getIntPosition().CompareTo(35) > 0 )
+        if (p.getIntPos().CompareTo(5) < 0 && p.getIntPos().CompareTo(35) > 0 )
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(5));
-        else if (p.getIntPosition().CompareTo(15) < 0)
+        else if (p.getIntPos().CompareTo(15) < 0)
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(15));
-        else if (p.getIntPosition().CompareTo(25) < 0)
+        else if (p.getIntPos().CompareTo(25) < 0)
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(25));
         else
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(35));
