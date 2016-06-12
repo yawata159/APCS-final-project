@@ -20,7 +20,7 @@ public class CommunityChest extends Space{
 	return c;
     }
 
-    public void landed(Player p){
+    public void land(Player p){
 	CommunityCard c=communityCard();
 	c.action(p);
     }

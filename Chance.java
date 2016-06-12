@@ -20,7 +20,7 @@ public class Chance extends Space{
 	return c;
     }
 
-    public void landed(Player p){
+    public void land(Player p){
 	ChanceCard c=chanceCard();
 	c.action(p);
     }
