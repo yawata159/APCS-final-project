@@ -8,20 +8,20 @@ public class Chance extends Space{
     private int pos;
 
     public Chance(){
-	super("Chance");
-	/*
-	Instantiate _cards
-	*/
+ super("Chance");
+ /*
+ Instantiate _cards
+ */
     }
 
     public ChanceCard chanceCard(){
-	ChanceCard c=_cards.removeFirst();
-	_cards.addLast(c);
-	return c;
+ ChanceCard c=_cards.removeFirst();
+ _cards.addLast(c);
+ return c;
     }
 
     public void land(Player p){
-	ChanceCard c=chanceCard();
-	c.action(p);
+ ChanceCard c=chanceCard();
+ c.action(p);
     }
 }
