@@ -14,7 +14,7 @@ public class MapText {
     private static final int MAGENTA = 45;
     private static final int BLACK = 40; //for orange
     
-    private static final String RESET = "[2J";
+    private static final String RESET = "[2J[1;1H";
 
     // 6 PLAYERS
     // row,col
@@ -81,23 +81,24 @@ public class MapText {
     };
 
 
-    private ArrayList<ArrayList<Character>> boardLines;
+    private ArrayList<ArrayList<Character>> _boardLines;
+
 
     public MapText() throws FileNotFoundException{
 	
 	// import map.txt to boardlines
-	boardLines = new ArrayList<ArrayList<Character>>();
+	_boardLines = new ArrayList<ArrayList<Character>>();
 	File txt = new File("map.txt");
 	try {
 	    Scanner sc = new Scanner(txt);
 	    while (sc.hasNextLine())
-		boardLines.add(charArrayList(sc.nextLine()));
+		_boardLines.add(charArrayList(sc.nextLine()));
 	    
 	} catch (FileNotFoundException ex) {}
 	
     }
 
-    /*PRIVATE FUNCTIONS*/
+    /*STATIC FUNCTIONS*/
     private static String backgroundColor(int n) {
 	return "[" + n + "m";
     }
@@ -117,15 +118,44 @@ public class MapText {
 
     /*MODIFIERS*/
     private char changeChar(int row, int col, char c){
-	char ans = boardLines.get(row).get(col);
-	boardLines.get(row).set(col,c);
+	char ans = _boardLines.get(row).get(col);
+	_boardLines.get(row).set(col,c);
 	return ans;
+    }
+    
+    private void clearPlayers(ArrayList<Player> P) {
+	for (int i = 0; i < P.size(); i++) {
+	    clearPlayer(P.get(i),i);
+	}
+    }
+
+    private void clearPlayer(Player boi, int shift) {
+	int boardPos = boi.position().getIntPos();
+	Integer[] coordinates = FIRST_PLAYER_POS[boardPos];
+	changeChar(coordinates[0]+shift,coordinates[1]+shift,'-');
+    }
+
+    private void placePlayers(ArrayList<Player> P) {
+	for (int i = 0 ; i < P.size(); i++) {
+	    placePlayer(P.get(i),i);
+	}
+    }
+
+    private void placePlayer(Player boi, int shift) {
+	int boardPos = boi.position().getIntPos();
+	Integer[] coordinates = FIRST_PLAYER_POS[boardPos];
+	changeChar(coordinates[0]+shift,coordinates[1]+shift,boi.getAvatar());
     }
 
     public void printMap() {
-
-	for (int i = 0; i < boardLines.size(); i++) {
-	    for (int j = 0 ; j < boardLines.get(i).size();j++) {
+	/*
+	MonopolyBoard M = new MonopolyBoard();
+	Player h = new Player("bob", 150, new MonopolyGame(6));
+	h.setPosition(M.getSpace(3));
+	placePlayer(h,0);
+	*/
+	for (int i = 0; i < _boardLines.size(); i++) {
+	    for (int j = 0 ; j < _boardLines.get(i).size();j++) {
 		if (i == 6) { //top
 		    if (binarySearch(RED_BGRND,j) != -1) System.out.print(backgroundColor(RED));
 		    else if (binarySearch(YELLOW_BGRND,j) != -1) System.out.print(backgroundColor(YELLOW));
@@ -143,7 +173,7 @@ public class MapText {
 		    if (binarySearch(GREEN_BGRND,i) != -1) System.out.print(backgroundColor(GREEN));
 		    else if (binarySearch(BLUE_BGRND,i) != -1) System.out.print(backgroundColor(BLUE));
 		}
-		System.out.print(boardLines.get(i).get(j));
+		System.out.print(_boardLines.get(i).get(j));
 		System.out.print(CLEAR);
 	    }
 	    System.out.println();
@@ -161,6 +191,7 @@ public class MapText {
     public static void main(String[] args) throws FileNotFoundException{
 	MapText G = new MapText();
 	//G.changeChar(0,0,'+');
+	System.out.println(RESET);
 	G.printMap();
 			   
     }
