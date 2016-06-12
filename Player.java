@@ -86,7 +86,7 @@ public class Player{
     }
 
     public void goToJail(){
-	setPosition(_game.getBoard().getSpace(30));
+	setPosition(_game.getBoard().getSpace(10));
 	_inJail=true;
     }
 
