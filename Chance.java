@@ -7,30 +7,31 @@ public class Chance extends Space{
     private static int _drawn;
 
     public Chance(){
-	super("Chance");
-	_drawn=0;
-	_cards=ChanceCard.createCards();
+ super("Chance");
+ _drawn=0;
+ _cards=ChanceCard.createCards();
+ ChanceCard.setGame(getGame());
     }
 
     public ChanceCard chanceCard(){
-	_drawn++;
-	ChanceCard c=_cards.removeFirst();
-	_cards.addLast(c);
-	if (_drawn==_cards.size()){
-	    _drawn=0;
-	    shuffle();
-	}
-	return c;
+ _drawn++;
+ ChanceCard c=_cards.removeFirst();
+ _cards.addLast(c);
+ if (_drawn==_cards.size()){
+     _drawn=0;
+     shuffle();
+ }
+ return c;
     }
 
     public static void shuffle(){
-	//
-	//
-	//
+ //
+ //
+ //
     }
 
     public void land(Player p){
-	ChanceCard c=chanceCard();
-	c.action(p);
+ ChanceCard c=chanceCard();
+ c.action(p);
     }
 }
