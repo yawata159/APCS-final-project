@@ -195,7 +195,7 @@ public class MapText {
     public static void main(String[] args) throws FileNotFoundException{
 	MapText G = new MapText(new ArrayList<Player>());
 	//G.changeChar(0,0,'+');
-	System.out.println(RESET);
+	System.out.print(RESET);
 	G.printMap();
 			   
     }
