@@ -1,6 +1,6 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
+
+import java.util.*;
+import java.io.*;
 
 public class MonopolyGame{
 
@@ -8,13 +8,13 @@ public class MonopolyGame{
 
     public ArrayList<Player> _players;
     public MonopolyBoard _board;
-    //public MapText _map;
+    public MapText _map;
     
     /*
       ...
     */
-    // for _map: internal stuff, placeplayers(maptext), printboard(maptext), clearplayers(maptext)
-    public MonopolyGame(){
+
+    public MonopolyGame() throws FileNotFoundException {
 	Scanner s=new Scanner(System.in);
 	System.out.print(RESET);
 	System.out.println("Monopoly! For up to 6 players");
@@ -35,7 +35,7 @@ public class MonopolyGame{
 	}
 	s.close();
 	_board=new MonopolyBoard();
-	//_map=new MapText();
+	_map=new MapText();
     }
     
     private static char getChar(Scanner s) {
@@ -47,19 +47,50 @@ public class MonopolyGame{
 	else 
 	    return str.charAt(0);
     }
-    
+
+    public boolean isThereAWinner() {
+	int sum = 0;
+	for (Player p : _players) {
+	    if (p.money() <= 0) sum += 0;
+	    else sum +=1;
+	    
+	    if (sum > 1) return false; //still more than one person playing
+	}
+	return (sum == 1);
+	
+    }
     
     public MonopolyBoard getBoard(){
 	return _board;
     }
 
-    public static void main(String[] args) {
+    public ArrayList<Player> getPlayers() {
+	return _players;
+    }
+
+    public static void main(String[] args)  throws FileNotFoundException{
 	MonopolyGame G = new MonopolyGame(); 
-	// take turn
-	// maptext :clearmap
-	// maptext :placeplayers
-	// maptext :printboard
-	// maptext :clearplayers
+
+	//set player positions to go
+	for (int i = 0 ; i < G.getPlayers().size(); i++) {
+	    G.getPlayers().get(i).setPosition(G.getBoard().getSpace(0)); 
+	}
+	
+	int playerIndex = -1; 
+
+	while (!G.isThereAWinner()) {
+	    playerIndex = (playerIndex + 1) % (G.getPlayers().size()); //cycle through players
+	    Player currPlayer = G.getPlayers().get(playerIndex);
+	    int diceRoll = (int)(Math.random()*6) + (int)(Math.random()*6);
+	    
+	    // take turn
+	    // maptext :clearmap
+	    // maptext :placeplayers
+	    // maptext :printboard
+	    // maptext :clearplayers
+	    
+	}
+	
     }
 
 }
