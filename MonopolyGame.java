@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.io.*;
 
@@ -15,10 +14,11 @@ public class MonopolyGame{
     */
 
     public MonopolyGame() throws FileNotFoundException {
+	_players = new ArrayList<Player>();
 	Scanner s=new Scanner(System.in);
 	System.out.print(RESET);
 	System.out.println("Monopoly! For up to 6 players");
-	while (_players.size() <= 6){
+	while (_players.size() < 6){
 	    System.out.print("Type name of this player(or write START to start playing): ");
 	    String name=s.next();
 	    
@@ -30,24 +30,48 @@ public class MonopolyGame{
 	    else {
 		System.out.print("Type the avatar you want to use for this player(ONE character): ");
 		char av = getChar(s);
-		_players.add(new Player(name, 1500, av, this));
+
+		System.out.print("Type the color you want to use for your avatar (BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE): ");
+		int color = getColor(s);
+		_players.add(new Player(name, 1500, av, color, this));
 	    }
+	    System.out.println(_players);
+	    System.out.println();
 	}
 	s.close();
 	_board=new MonopolyBoard();
-	_map=new MapText();
+	
+	//set positions to go
+	for (int i = 0 ; i < _players.size(); i++) {
+	    _players.get(i).setPosition(_board.getSpace(0)); 
+	}
+
+	_map=new MapText(_players);
+
+
     }
     
     private static char getChar(Scanner s) {
 	String str = s.next();
 	if (str.length() != 1) {
-	    System.out.println("I said one character: ");
+	    System.out.print("I said one character: ");
 	    return getChar(s);
 	}
 	else 
 	    return str.charAt(0);
     }
 
+    private static int getColor(Scanner s) {
+	String str = s.next();
+	String[] colorList = {"BLACK", "RED", "GREEN", "YELLOW", "BLUE", "MAGENTA", "CYAN", "WHITE"};
+	for (int i = 0 ; i < colorList.length; i++) {
+	    if (str.equalsIgnoreCase(colorList[i])) return 30+i;
+	}
+	System.out.print("I'm afraid you can't do that");
+	return getColor(s);
+    }
+
+    
     public boolean isThereAWinner() {
 	int sum = 0;
 	for (Player p : _players) {
@@ -63,6 +87,10 @@ public class MonopolyGame{
     public MonopolyBoard getBoard(){
 	return _board;
     }
+    
+    public MapText getMap() {
+	return _map;
+    }
 
     public ArrayList<Player> getPlayers() {
 	return _players;
@@ -70,28 +98,45 @@ public class MonopolyGame{
 
     public static void main(String[] args)  throws FileNotFoundException{
 	MonopolyGame G = new MonopolyGame(); 
-
+	
 	//set player positions to go
-	for (int i = 0 ; i < G.getPlayers().size(); i++) {
-	    G.getPlayers().get(i).setPosition(G.getBoard().getSpace(0)); 
-	}
 	
 	int playerIndex = -1; 
 
 	while (!G.isThereAWinner()) {
+	    System.out.print(RESET);
+	    
+	    //display map
+	    G.getMap().printMap();
+	    System.out.println();
+	    
+	    //internal crap
 	    playerIndex = (playerIndex + 1) % (G.getPlayers().size()); //cycle through players
 	    Player currPlayer = G.getPlayers().get(playerIndex);
+	    System.out.println("It is " + currPlayer.name() + "'s turn.");
+	    
 	    int diceRoll = (int)(Math.random()*6) + (int)(Math.random()*6);
+	    System.out.println("You rolled a " + diceRoll);
 	    
-	    // take turn
-	    // maptext :clearmap
-	    // maptext :placeplayers
-	    // maptext :printboard
-	    // maptext :clearplayers
+	    Space newPos = G.getBoard().getSpace( (currPlayer.position().getIntPos() + diceRoll)%40 ); 
+	    currPlayer.setPosition(newPos);
 	    
+	    // space action:
+	    
+	    //text for space action (bretween actions)
+	    
+	    //end turn
 	}
 	
     }
 
 }
 	
+
+//init
+//
+//1 place players go
+//2 internal turn
+//3 clear players
+//4 place players (updated for that 1 palyer)
+//go to 1

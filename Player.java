@@ -13,9 +13,9 @@ public class Player{
     private int _utilitiesOwned;
     private boolean _inJail; 
     private char _avatar; //displayed in the terminal
+    private int _color; //see above
     
-    
-    public Player(String name, int money, char avatar, MonopolyGame g){
+    public Player(String name, int money, char avatar, int color, MonopolyGame g){
 	_game=g;
 	_name=name;
 	_money=money;
@@ -27,6 +27,7 @@ public class Player{
 	_railroadsOwned=0;
 	_utilitiesOwned=0;
 	_avatar = avatar;
+	_color = color;
     }
 
     public String name(){
@@ -38,6 +39,13 @@ public class Player{
     }
     public void setAvatar(char c) {
 	_avatar = c;
+    }
+
+    public int getColor() {
+	return _color;
+    }
+    public void setColor(int c) {
+	_color = c;
     }
 
     public int money(){
@@ -140,4 +148,8 @@ public class Player{
 	if (p.addHouse()) addMoney((-1)*p.housePrice());
     }
 
+    //just for debugging
+    public String toString() {
+	return _name;
+    }
 }
