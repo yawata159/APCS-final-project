@@ -1,7 +1,7 @@
 public class ChanceCard11 implements ChanceCard{
 
     private final int _id=11;
-    private final String _text = "Take a trip to Reading Railroad ¨C If you pass Go, collect $200"
+    private final String _text = "Take a trip to Reading Railroad ¨C If you pass Go, collect $200";
 
     public int getId(){
       return _id;
