@@ -14,13 +14,25 @@ public class Utility extends Buyable{
   }
   
   public int rent(int dice){
-    if (_owner.utilitiesOwned()==2) return 10 * dice;
-    else return 4*dice;
+    if (_owner.utilitiesOwned()==2) return 10 * _dice;
+    else return 4*_dice;
   }
   
   public void land(Player p){
     if (isOwned()){
       int rent=rent(_dice);
+      p.addMoney((-1)*rent);
+      owner().addMoney(rent);
+    }
+    else{
+      if (buyDialogue())
+        p.buy(this);
+    }
+  }
+  
+  public void land(Player p, boolean b){
+    if (isOwned()){
+      int rent=10*_dice;
       p.addMoney((-1)*rent);
       owner().addMoney(rent);
     }
