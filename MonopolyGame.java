@@ -97,19 +97,47 @@ public class MonopolyGame{
     }
     
     public void playerTurn(Scanner s, Player p) {
-
-      int dice1 = (int)(Math.random()*6);
-      int dice2 = (int)(Math.random()*6);
      
-      System.out.println("You rolled " + dice1 + " and " + dice2);
-      
-      
-      //check if in special state (i.e. jail):
-      if (p.inJail()) {
+     if (p.inJail()) {
 	  System.out.print("You're in jail. Do you want to throw DOUBLES, pay a $50 FINE, or use a Get Out of Jail CARD?: ");
 	  int jailActionNum = inJailActions(s, p);
-	  
+	  if (jailActionNum == 0){
+	  	
+	  }
+	  if (jailActionNum == 1){
+	  	
+	  }
+	  if (jailActionNum == 2){
+	  	
+	  }
+     }
+     
+     int dice1 = (int)(Math.random()*6);
+     int dice2 = (int)(Math.random()*6);
+
+      System.out.println("You rolled " + dice1 + " and " + dice2);
+      if (dice1 == dice2) {
+      	System.out.println("1 Double!");	
+      	dice1 = (int)(Math.random()*6);
+      	dice2 = (int)(math.random()*6);
+      	System.out.println("You rolled " + dice1 + " and " + dice2);
+
+      	if (dice1==dice2){
+      	  System.out.println("2 Doubles!");
+      	  dice1 = (int)(Math.random()*6);
+      	  dice2 = (int)(Math.random()*6);
+      	  System.out.println("You rolled " + dice1 + " and " + dice2);
+
+      	  if (dice1 == dice2) {
+      	    System.out.print("3 Doubles!");
+      	    p.goToJail();
+      	    return;
+      	  }
+      	}
       }
+      
+      //check if in special state (i.e. jail):
+
       
       Space newPos = getBoard().getSpace( (p.position().getIntPos() + dice1 + dice2)%40 ); 
       p.setPosition(newPos);
