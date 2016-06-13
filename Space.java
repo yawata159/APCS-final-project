@@ -22,7 +22,7 @@ public abstract class Space{
   }
   
   public void setPos(int pos){
-    pos=_pos;
+    _pos=pos;
   }
   
   public int getIntPos(){

@@ -82,8 +82,6 @@ public class MapText {
 
 
     private ArrayList<ArrayList<Character>> _boardLines;
-    private ArrayList<Player> _players;
-    private int[][] _playerCoordinates;
     
     public MapText(ArrayList<Player> players) throws FileNotFoundException{
 	
@@ -96,9 +94,6 @@ public class MapText {
 		_boardLines.add(charArrayList(sc.nextLine()));
 	    
 	} catch (FileNotFoundException ex) {}
-	_players = players;
-	_playerCoordinates = new int[_players.size()][2];
-	updatePlayerCoordinates();
     }
 
     /*STATIC FUNCTIONS*/
@@ -127,7 +122,7 @@ public class MapText {
     }
     
 
-
+    /*
     private void updatePlayerCoordinates() {
 	for (int i = 0 ; i < _players.size(); i++) {
 	    //add in coordinates to playerCoord
@@ -136,24 +131,35 @@ public class MapText {
 	}	
     }
 
-    // returns player number, -1 if not found
-    private int playerCoordinates(int i, int j) {
-	for (int k = 0 ; k < _playerCoordinates.length; k++) {
-	    if (_playerCoordinates[k][0] == i && _playerCoordinates[k][1] == j) return k;
+    */
+    private int playerCoordinates(int i, int j, int[][] pCoord) {
+	for (int k = 0 ; k < pCoord.length; k++) {
+	    if (pCoord[k][0] == i && pCoord[k][1] == j) return k;
 	}
 	return -1;
 	     
     }
 
-    public void printMap() {
-	updatePlayerCoordinates();
+
+    private static int[][] getCoordinateArray(ArrayList<Player> P) {
+	int[][] ans = new int[P.size()][2];
+	for (int i = 0; i < P.size(); i++) {
+	    ans[i][0] = FIRST_PLAYER_POS[P.get(i).position().getIntPos()][0];
+	    ans[i][1] = FIRST_PLAYER_POS[P.get(i).position().getIntPos()][1] +i;
+	}
+	return ans;
+    }
+
+    public void printMap(ArrayList<Player> P) {
+	int[][] playerCoordinates = getCoordinateArray(P);
 	for (int i = 0; i < _boardLines.size(); i++) {
 	    for (int j = 0 ; j < _boardLines.get(i).size();j++) {
 		// if char is an avatar print color
-		int playerNum = playerCoordinates (i,j);
+		int playerNum = playerCoordinates(i,j,playerCoordinates);
+		
 		if (playerNum != -1) {
-		    System.out.print(backgroundColor(_players.get(playerNum).getColor()));
-		    System.out.print(_players.get(playerNum).getAvatar());
+		    System.out.print(backgroundColor(P.get(playerNum).getColor()));
+		    System.out.print(P.get(playerNum).getAvatar());
 		}
 		// else print regular chars
 		else {
@@ -193,11 +199,6 @@ public class MapText {
     }
 
     public static void main(String[] args) throws FileNotFoundException{
-	MapText G = new MapText(new ArrayList<Player>());
-	//G.changeChar(0,0,'+');
-	System.out.print(RESET);
-	G.printMap();
-			   
     }
 
 }

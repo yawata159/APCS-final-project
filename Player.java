@@ -191,6 +191,6 @@ public class Player{
   
   //just for debugging
   public String toString() {
-    return _name;
+      return getIntPos() + "";
   }
 }

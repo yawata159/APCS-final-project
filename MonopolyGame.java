@@ -172,6 +172,13 @@ public class MonopolyGame{
       Space newPos = getBoard().getSpace(newPosInt); 
       p.setPosition(newPos);
       System.out.println("You landed on " + newPos.getName());
+
+      //debug:
+      System.out.println(newPos.getIntPos());
+      System.out.println(p);
+      for (Player x : _players) System.out.print(x + ", " );
+      System.out.println();
+
       //nonjail spaces:
       if (newPosInt == 4) { //income tax
 	  int x=p.money();
@@ -209,17 +216,25 @@ public class MonopolyGame{
 
     int playerIndex = -1; 
     
+    //debug:
+    for (Space a: G.getBoard().getBoard()) {
+	System.out.println(a.getIntPos());
+    }
+
     while (!G.isThereAWinner()) {
       System.out.print(RESET);
       
-      //display crap
-      G.getMap().printMap();
+      //update players
+      
+      G.getMap().printMap(G.getPlayers());
       System.out.println();
       
       //internal crap
       playerIndex = (playerIndex + 1) % (G.getPlayers().size()); //cycle through players
       Player currPlayer = G.getPlayers().get(playerIndex);
       System.out.println("It is " + currPlayer.name() + "'s turn.");
+      // add int details of prop money and monopolies'
+
       
       // space action:
       G.playerTurn(s, currPlayer);

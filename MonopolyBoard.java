@@ -114,4 +114,8 @@ public class MonopolyBoard{
         return _utilities;
     }
 
+    public Space[] getBoard() {
+	return _board;
+    }
+
 }
