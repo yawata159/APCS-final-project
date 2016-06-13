@@ -3,13 +3,13 @@ public class Utility extends Buyable{
   private final int _price=150;
   private boolean _owned;
   private Player _owner;
-  private int _dice;
+  private static int _dice;
   
   public Utility(String name){
     super(name,150);
   }
   
-  public void updateDice(int dice){
+  public static void updateDice(int dice){
     _dice=dice;
   }
   
