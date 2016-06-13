@@ -51,17 +51,17 @@ public class MonopolyGame{
     
   }
   
-  private static char getChar(Scanner s) {
+    private static char getChar(Scanner s) {
     String str = s.next();
     if (str.length() != 1) {
       System.out.print("I said one character: ");
       return getChar(s);
     }
     else 
-      return str.charAt(0);
+	return str.charAt(0);
   }
   
-  private static int getColor(Scanner s) {
+    private static int getColor(Scanner s) {
     String str = s.next();
     String[] colorList = {"BLACK", "RED", "GREEN", "YELLOW", "BLUE", "MAGENTA", "CYAN", "WHITE"};
     for (int i = 0 ; i < colorList.length; i++) {
@@ -92,32 +92,56 @@ public class MonopolyGame{
     return _map;
   }
   
-  public ArrayList<Player> getPlayers() {
-    return _players;
-  }
-  
-  public void playerTurn(Player p) {
+    public ArrayList<Player> getPlayers() {
+      return _players;
+    }
+    
+    public void playerTurn(Scanner s, Player p) {
 
-      int diceRoll = (int)(Math.random()*6) + (int)(Math.random()*6);
-      System.out.println("You rolled a " + diceRoll);
+      int dice1 = (int)(Math.random()*6);
+      int dice2 = (int)(Math.random()*6);
+     
+      System.out.println("You rolled " + dice1 + " and " + dice2);
       
-      Space newPos = getBoard().getSpace( (p.position().getIntPos() + diceRoll)%40 ); 
+      
+      //check if in special state (i.e. jail):
+      if (p.inJail()) {
+	  System.out.print("You're in jail. Do you want to throw DOUBLES, pay a $50 FINE, or use a Get Out of Jail CARD?: ");
+	  int jailActionNum = inJailActions(s, p);
+	  
+      }
+      
+      Space newPos = getBoard().getSpace( (p.position().getIntPos() + dice1 + dice2)%40 ); 
       p.setPosition(newPos);
       
-
-    //check if in special state (i.e. jail):
-    
-    
-    //else check what kind of space s is and do the action corresponding to it:
-    //If utiliity - pos=12 or pos=28 do 
-    
-    //text for space action (bretween actions)
+      
+      //else check what kind of space s is and do the action corresponding to it:
+      //If utiliity - pos=12 or pos=28 do 
+      
+      //text for space action (bretween actions)
   }
   
+    private static int inJailActions(Scanner s, Player p) {
+	  String response = s.next();
+	  String[] actions = {"DOUBLES", "FINE", "CARD"};
+	  for (int i = 0; i< actions.length; i++) {
+	      if (response.equalsIgnoreCase(actions[i])) {
+		  if (i == 2 && p.numGetOutOfJailFreeCards() <= 0) {
+		      System.out.print("You do not have Get Out of Jail Free Cards. Pick something else: ");
+		      return inJailActions(s, p);
+		  }
+		  
+		  return i;
+	      }
+	  }
+	  System.out.print("That is not an option: ");
+	  return inJailActions(s, p);
+    }
+    
   
   public static void main(String[] args)  throws FileNotFoundException{
     MonopolyGame G = new MonopolyGame(); 
-    
+    Scanner s = new Scanner(System.in);
     
     int playerIndex = -1; 
     
@@ -134,7 +158,7 @@ public class MonopolyGame{
       System.out.println("It is " + currPlayer.name() + "'s turn.");
       
       // space action:
-      G.playerTurn(currPlayer);
+      G.playerTurn(s, currPlayer);
       
       //end turn
     }
