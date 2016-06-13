@@ -67,7 +67,7 @@ public class MonopolyGame{
     for (int i = 0 ; i < colorList.length; i++) {
       if (str.equalsIgnoreCase(colorList[i])) return 30+i;
     }
-    System.out.print("I'm afraid you can't do that");
+    System.out.print("I'm afraid you can't do that: ");
     return getColor(s);
   }
   
@@ -97,11 +97,14 @@ public class MonopolyGame{
   }
   
   public void playerTurn(Player p) {
-    int d1=dice();
-    int d2=dice();
-    //move(d1+d2);
-    
-    Space s = p.position();
+
+      int diceRoll = (int)(Math.random()*6) + (int)(Math.random()*6);
+      System.out.println("You rolled a " + diceRoll);
+      
+      Space newPos = getBoard().getSpace( (p.position().getIntPos() + diceRoll)%40 ); 
+      p.setPosition(newPos);
+      
+
     //check if in special state (i.e. jail):
     
     
@@ -111,10 +114,6 @@ public class MonopolyGame{
     //text for space action (bretween actions)
   }
   
-  public int dice(){
-    Double d=Math.random();
-    return ((int)(6*d)+1);
-  }
   
   public static void main(String[] args)  throws FileNotFoundException{
     MonopolyGame G = new MonopolyGame(); 
@@ -134,14 +133,8 @@ public class MonopolyGame{
       Player currPlayer = G.getPlayers().get(playerIndex);
       System.out.println("It is " + currPlayer.name() + "'s turn.");
       
-      int diceRoll = (int)(Math.random()*6) + (int)(Math.random()*6);
-      System.out.println("You rolled a " + diceRoll);
-      
-      Space newPos = G.getBoard().getSpace( (currPlayer.position().getIntPos() + diceRoll)%40 ); 
-      currPlayer.setPosition(newPos);
-      
       // space action:
-      playerTurn(currPlayer);
+      G.playerTurn(currPlayer);
       
       //end turn
     }
