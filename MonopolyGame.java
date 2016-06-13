@@ -142,6 +142,9 @@ public class MonopolyGame{
 	//else
      
 	//dice rolls
+	System.out.print("Type anything to roll: ");
+	s.next();
+	
      int dice1 = (int)(Math.random()*6 +1);
      int dice2 = (int)(Math.random()*6+1);
 
@@ -168,10 +171,16 @@ public class MonopolyGame{
       int newPosInt = (p.position().getIntPos() + dice1 +dice2) % 40;
       Space newPos = getBoard().getSpace(newPosInt); 
       p.setPosition(newPos);
-      
+      System.out.println("You landed on " + newPos.getName());
       //nonjail spaces:
+      if (newPosInt == 4) { //income tax
+	  int x=p.money();
+	  int tax=Math.min(200,(x/10));
+	  p.addMoney((-1)*tax);
+      }
       
-      
+      System.out.print("Type anything to end your turn: ");
+      s.next();
       
 
   }
