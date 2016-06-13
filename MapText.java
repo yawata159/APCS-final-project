@@ -132,7 +132,7 @@ public class MapText {
 	for (int i = 0 ; i < _players.size(); i++) {
 	    //add in coordinates to playerCoord
 	    _playerCoordinates[i][0] = FIRST_PLAYER_POS[_players.get(i).position().getIntPos()][0];
-	    _playerCoordinates[i][1] = _playerCoordinates[i][0] + i;
+	    _playerCoordinates[i][1] = FIRST_PLAYER_POS[_players.get(i).position().getIntPos()][1] + i;
 	}	
     }
 

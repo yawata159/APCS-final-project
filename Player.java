@@ -14,8 +14,9 @@ public class Player{
   private boolean _inJail; 
   private int _getOutOfJailFreeCards;
   private char _avatar; //displayed in the terminal
-  private int _color; //see above
-  
+    private int _color; //see above
+    private int _jailDoubles;
+
   public Player(String name, int money, char avatar, int color, MonopolyGame g){
     _game=g;
     _name=name;
@@ -29,6 +30,7 @@ public class Player{
     _utilitiesOwned=0;
     _avatar = avatar;
     _color = color;
+    _jailDoubles = 0;
   }
   
   public String name(){
@@ -50,7 +52,14 @@ public class Player{
   public void setColor(int c) {
     _color = c;
   }
-  
+
+    public int getJailDoubles() {
+	return _jailDoubles;
+    }
+    public void setJailDoubles(int n) {
+	_jailDoubles= n;
+    }
+
   public int money(){
     return _money;
   }
@@ -95,6 +104,10 @@ public class Player{
     setPosition(_game.getBoard().getSpace(10));
     _inJail=true;
   }
+
+    public void exitJail(){
+	_inJail = false;
+    }
   
   //money can be <0
   public void addMoney(int money){

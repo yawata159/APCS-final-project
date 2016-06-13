@@ -3,7 +3,7 @@ import java.io.*;
 
 public class MonopolyGame{
   
-  private static final String RESET = " [2J [1;1H";
+  private static final String RESET = "[2J[1;1H";
   
   public ArrayList<Player> _players;
   public MonopolyBoard _board;
@@ -18,11 +18,12 @@ public class MonopolyGame{
     Scanner s=new Scanner(System.in);
     System.out.print(RESET);
     System.out.println("Monopoly! For up to 6 players");
+    System.out.println("Make sure the terminal is zoomed out enough for the board to fit");
     while (_players.size() < 6){
       System.out.print("Type name of this player(or write START to start playing): ");
       String name=s.next();
       
-      if (name.equals("START"))  {
+      if (name.equalsIgnoreCase("START"))  {
         if (_players.size() == 1) System.out.println("Not enough Players");
         else break;
       }
@@ -35,10 +36,9 @@ public class MonopolyGame{
         int color = getColor(s);
         _players.add(new Player(name, 1500, av, color, this));
       }
-      System.out.println(_players);
       System.out.println();
     }
-    s.close();
+    //    s.close();
     _board=new MonopolyBoard();
     
     //set positions to go
@@ -97,56 +97,83 @@ public class MonopolyGame{
     }
     
     public void playerTurn(Scanner s, Player p) {
-     
-     if (p.inJail()) {
+	if (p.inJail()) {
 	  System.out.print("You're in jail. Do you want to throw DOUBLES, pay a $50 FINE, or use a Get Out of Jail CARD?: ");
 	  int jailActionNum = inJailActions(s, p);
 	  if (jailActionNum == 0){
-	  	
+	      if (p.getJailDoubles() == 3) {
+		  System.out.println("You've already rolled three turns. Pay the 50$ Fine");
+		  p.addMoney(-50);
+		  p.exitJail();
+	      }
+	      else {
+		  int dice10 = (int)(Math.random()*6 +1);
+		  int dice20 = (int)(Math.random()*6+1);
+		  
+		  System.out.println("You rolled " + dice10 + " and " + dice20);
+		  if (dice10 == dice20) {
+		      System.out.println("You're Free!");
+		      p.exitJail();
+		      
+		  }
+		  else {
+		      System.out.println("Those aren't doubles. Wait another turn");
+		      return;
+		  }
+	      }
 	  }
 	  if (jailActionNum == 1){
-	  	
+	      System.out.println("You pay the fine");
+	      p.addMoney(-50);
+	      p.exitJail();
+		  
 	  }
 	  if (jailActionNum == 2){
-	  	
+	      if (p.numGetOutOfJailFreeCards() > 0) {
+		  System.out.println("You use a get out of jail card");
+		  p.exitJail();
+	      }
+	      else {
+		  System.out.println("You don't have any get out of jail cards.");
+		  return;
+	      }
 	  }
-     }
+	}
+	//else
      
-     int dice1 = (int)(Math.random()*6);
-     int dice2 = (int)(Math.random()*6);
+	//dice rolls
+     int dice1 = (int)(Math.random()*6 +1);
+     int dice2 = (int)(Math.random()*6+1);
 
       System.out.println("You rolled " + dice1 + " and " + dice2);
       if (dice1 == dice2) {
       	System.out.println("1 Double!");	
-      	dice1 = (int)(Math.random()*6);
-      	dice2 = (int)(math.random()*6);
+      	dice1 = (int)(Math.random()*6+1);
+      	dice2 = (int)(Math.random()*6+1);
       	System.out.println("You rolled " + dice1 + " and " + dice2);
 
       	if (dice1==dice2){
       	  System.out.println("2 Doubles!");
-      	  dice1 = (int)(Math.random()*6);
-      	  dice2 = (int)(Math.random()*6);
+      	  dice1 = (int)(Math.random()*6+1);
+      	  dice2 = (int)(Math.random()*6+1);
       	  System.out.println("You rolled " + dice1 + " and " + dice2);
 
       	  if (dice1 == dice2) {
-      	    System.out.print("3 Doubles!");
+      	    System.out.print("3 Doubles! Jail For you!");
       	    p.goToJail();
       	    return;
       	  }
       	}
       }
-      
-      //check if in special state (i.e. jail):
-
-      
-      Space newPos = getBoard().getSpace( (p.position().getIntPos() + dice1 + dice2)%40 ); 
+      int newPosInt = (p.position().getIntPos() + dice1 +dice2) % 40;
+      Space newPos = getBoard().getSpace(newPosInt); 
       p.setPosition(newPos);
       
+      //nonjail spaces:
       
-      //else check what kind of space s is and do the action corresponding to it:
-      //If utiliity - pos=12 or pos=28 do 
       
-      //text for space action (bretween actions)
+      
+
   }
   
     private static int inJailActions(Scanner s, Player p) {
@@ -170,7 +197,7 @@ public class MonopolyGame{
   public static void main(String[] args)  throws FileNotFoundException{
     MonopolyGame G = new MonopolyGame(); 
     Scanner s = new Scanner(System.in);
-    
+
     int playerIndex = -1; 
     
     while (!G.isThereAWinner()) {

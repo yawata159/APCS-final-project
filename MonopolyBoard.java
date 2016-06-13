@@ -13,6 +13,7 @@ public class MonopolyBoard{
     public MonopolyBoard(){
 	_board = new Space[40];
 
+	_board[0] = new Go();
 	//Properties:  new Property(int type,int price,String name,int[] rents)
 	_board[1] = new Property(1,60,"Mediterranean Avenue", new int[]{10,30,90,160,250});
 	_board[3] = new Property(1,60,"Baltic Avenue",new int[]{20,60,180,320,450});
@@ -59,6 +60,15 @@ public class MonopolyBoard{
 	_board[20]=new FreeParking();
 	_board[30]=new GoToJail();
 	_board[38]=new LuxuryTax();
+	
+	_board[17]= new CommunityChest();
+	_board[20] = new FreeParking();
+	_board[30] = new GoToJail();
+	_board[36] = new Chance();
+	
+	_properties = new ArrayList<Property>();
+	_utilities = new ArrayList<Utility>();
+	_railroads = new ArrayList<Railroad>();
 
 	setPositions();
 	setProperties();
@@ -71,13 +81,15 @@ public class MonopolyBoard{
     }
 
     public void setPositions(){
-	for (int i=0;i<_board.length;i++)
+	for (int i=0;i<_board.length;i++) {
 	    _board[i].setPos(i);
+	}
     }
 
     public void setProperties(){
-	for (int x: _PROPERTY_POSITIONS)
+	for (int x: _PROPERTY_POSITIONS) {
 	    _properties.add((Property)(_board[x]));
+	}
     }
 
     public void setRailroads(){
