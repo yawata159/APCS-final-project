@@ -14,7 +14,7 @@ public abstract class ChanceCard{
     }
 
     public static void setGame(MonopolyGame g){
-      _game=g;
+      
     }
     
     public static MonopolyGame getGame(){
@@ -65,7 +65,8 @@ public abstract class ChanceCard{
       
       public void action(Player p){
         p.setPosition(ChanceCard.getGame().getBoard().getSpace(0));
-        p.addMoney(200); }
+        (ChanceCard.getGame().getBoard()).getSpace(0).land(p);
+        }
     }
 
     public static class Card1 extends ChanceCard{
@@ -74,11 +75,10 @@ public abstract class ChanceCard{
         super(id,text);
       }
       
-      public void action(Player p){
-        if (p.getIntPos() > 24) p.addMoney(200);
-        p.setPosition(ChanceCard.getGame().getBoard().getSpace(24));
-        p.position().land(p);
-      }
+     public void action(Player p){
+      if (p.getIntPos() > 24) p.addMoney(200);
+      p.setPosition(ChanceCard.getGame().getBoard().getSpace(24));
+    }
     }
     
     public static class Card2 extends ChanceCard{
@@ -90,7 +90,7 @@ public abstract class ChanceCard{
       public void action(Player p){
         if (p.getIntPos() > 11) p.addMoney(200);
         p.setPosition(ChanceCard.getGame().getBoard().getSpace(11));
-        p.position().land(p);
+        (ChanceCard.getGame().getBoard()).getSpace(11).land(p);
       }
     }
     
@@ -100,11 +100,12 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-      if ((Math.abs(p.getIntPos()-12))<Math.abs((p.getIntPos()-28)))
+      if ((Math.abs(p.getIntPos()-12))<(Math.abs(p.getIntPos()-28)))
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(12));
       else p.setPosition(ChanceCard.getGame().getBoard().getSpace(28));
       if (!((Buyable)p.position()).isOwned())
-            p.buy();
+        if (((Buyable)(p.position())).buyDialogue())
+        p.buy();
       else{
         for (int i = 0; i < 10; i++)
           p.position().land(p);
@@ -119,23 +120,23 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-        int pos=p.getIntPos();
-        if (0<=pos && pos<=10)
+        if (p.getIntPos()<5 && p.getIntPos()>35 )
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(5));
-        else if (pos<=20)
+        else if (p.getIntPos()<15)
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(15));
-        else if (pos<=30)
+        else if (p.getIntPos()< 25)
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(25));
         else
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(35));
         if (!((Buyable)p.position()).isOwned())
-            p.buy();
+            if (((Buyable)p.position()).buyDialogue())
+        p.buy();
         else{
           for (int i = 0; i < 2; i++){
             p.position().land(p);
           }
         }
-      }
+    }
     }
     
     public static class Card5 extends ChanceCard{
@@ -168,7 +169,7 @@ public abstract class ChanceCard{
       public void action(Player p){
         p.setPosition(ChanceCard.getGame().getBoard().getSpace(p.getIntPos() - 3));
         p.position().land(p);
-      }
+    }
     }
     
     public static class Card8 extends ChanceCard{
@@ -268,27 +269,26 @@ public abstract class ChanceCard{
         super(id,text);
       }
       
-      public void action(Player p){
-        int pos=p.getIntPos();
-        if (0<=pos && pos<=10)
+     public void action(Player p){
+        if (p.getIntPos()<5 && p.getIntPos()>35 )
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(5));
-        else if (pos<=20)
+        else if (p.getIntPos()<15)
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(15));
-        else if (pos<=30)
+        else if (p.getIntPos()< 25)
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(25));
         else
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(35));
         if (!((Buyable)p.position()).isOwned())
-            p.buy();
+            if (((Buyable)p.position()).buyDialogue())
+        p.buy();
         else{
           for (int i = 0; i < 2; i++){
             p.position().land(p);
           }
         }
-      }
     }
-}
-
+    }
+    }
 
 
       
