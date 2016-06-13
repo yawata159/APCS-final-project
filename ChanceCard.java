@@ -104,7 +104,7 @@ public abstract class ChanceCard{
       if ((Math.abs(p.getIntPos()-12))<(Math.abs(p.getIntPos()-28)))
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(12));
       else p.setPosition(ChanceCard.getGame().getBoard().getSpace(28));
-      p.position().land(p,true);
+      ((Utility)p.position()).land(p,true);
     }
       /*
       public void action(Player p){
