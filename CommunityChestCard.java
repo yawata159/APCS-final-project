@@ -9,88 +9,88 @@ public abstract class CommunityChestCard{
     private final static int NUM_CARDS=17;
   
     public CommunityChestCard(int id, String text){
-	_id=id;
-	_text=text;
+ _id=id;
+ _text=text;
     }
 
     public static void setGame(MonopolyGame game){
-	GAME=game;
+ GAME=game;
     }
 
     public static MonopolyGame getGame(){
-	return GAME;
+ return GAME;
     }
 
     public int getId(){
-	return _id;
+ return _id;
     }
 
     public String getText(){
-	return _text;
+ return _text;
     }
 
     public abstract void action(Player p);
 
     public String toString(){
-	return getText();
+ return getText();
     }
 
     public static LinkedList<CommunityChestCard> createCards(){
-	LinkedList<CommunityChestCard> cards=new LinkedList<CommunityChestCard>();
-	cards.add(new Card0(0,"Advance to Go (Collect $200)."));
-	cards.add(new Card1(1,"Bank error in your favor – Collect $200"));
-	cards.add(new Card2(2,"Doctor's fees {fee} – Pay $50"));
-	cards.add(new Card3(3,"From sale of stock you get $50"));
-	cards.add(new Card4(4,"Get Out of Jail Free – This card may be kept until needed or sold"));
-	cards.add(new Card5(5,"Go to Jail – Go directly to jail – Do not pass Go – Do not collect $200" ));
-	cards.add(new Card6(6,"Grand Opera Night – Collect $50 from every player for opening night seats"));
-	cards.add(new Card7(7,"Holiday Fund matures - Receive $100"));
-	cards.add(new Card8(8,"Income tax refund – Collect $20"));
-	cards.add(new Card9(9,"It is your birthday - Collect $10 from each player"));
-	cards.add(new Card10(10,"Life insurance matures – Collect $100"));
-	cards.add(new Card11(11,"Pay hospital fees of $100"));
-	cards.add(new Card12(12,"Pay school fees of $150"));
-	cards.add(new Card13(13,"Receive $25 consultancy fee"));
-	cards.add(new Card14(14,"You are assessed for street repairs \n- $40 per house \n– $115 per hotel"));
-	cards.add(new Card15(15,"You have won second prize in a beauty contest – Collect $10"));
-	cards.add(new Card16(16,"You inherit $100 "));
-	return cards;
+ LinkedList<CommunityChestCard> cards=new LinkedList<CommunityChestCard>();
+ cards.add(new Card0(0,"Advance to Go (Collect $200)."));
+ cards.add(new Card1(1,"Bank error in your favor – Collect $200"));
+ cards.add(new Card2(2,"Doctor's fees {fee} – Pay $50"));
+ cards.add(new Card3(3,"From sale of stock you get $50"));
+ cards.add(new Card4(4,"Get Out of Jail Free – This card may be kept until needed or sold"));
+ cards.add(new Card5(5,"Go to Jail – Go directly to jail – Do not pass Go – Do not collect $200" ));
+ cards.add(new Card6(6,"Grand Opera Night – Collect $50 from every player for opening night seats"));
+ cards.add(new Card7(7,"Holiday Fund matures - Receive $100"));
+ cards.add(new Card8(8,"Income tax refund – Collect $20"));
+ cards.add(new Card9(9,"It is your birthday - Collect $10 from each player"));
+ cards.add(new Card10(10,"Life insurance matures – Collect $100"));
+ cards.add(new Card11(11,"Pay hospital fees of $100"));
+ cards.add(new Card12(12,"Pay school fees of $150"));
+ cards.add(new Card13(13,"Receive $25 consultancy fee"));
+ cards.add(new Card14(14,"You are assessed for street repairs \n- $40 per house \n– $115 per hotel"));
+ cards.add(new Card15(15,"You have won second prize in a beauty contest – Collect $10"));
+ cards.add(new Card16(16,"You inherit $100 "));
+ return cards;
     }
 
     public static class Card0 extends CommunityChestCard{
 
-	public Card0(int id,String text){
-	    super(id,text);
-	}
+ public Card0(int id,String text){
+     super(id,text);
+ }
 
-	public void action(Player p){
-	    p.setPosition(CommunityChestCard.getGame().getBoard().getSpace(0));
-	    p.addMoney(200);//not doubled
-	}
+ public void action(Player p){
+     p.setPosition(CommunityChestCard.getGame().getBoard().getSpace(0));
+     p.addMoney(200);//not doubled
+ }
     }
 
     public static class Card1 extends CommunityChestCard{
     
-	public Card1(int id,String text){
-	    super(id, text);
-	}
+ public Card1(int id,String text){
+     super(id, text);
+ }
 
-	public void action(Player p){
-	    p.addMoney(200);
-	}
+ public void action(Player p){
+     p.addMoney(200);
+ }
 
     }
 
     public static class Card2 extends CommunityChestCard{
 
-	public Card2(int id, String text){
-	    super(id,text);
-	}
-	
-	public void action(Player p){
-	    p.addMoney(-50);
-	    FreeParking.add(50);
-	}
+ public Card2(int id, String text){
+     super(id,text);
+ }
+ 
+ public void action(Player p){
+     p.addMoney(-50);
+     FreeParking.add(50);
+ }
 
     }
 
@@ -102,8 +102,8 @@ public abstract class CommunityChestCard{
 
 
         public void action(Player p){
-	    p.addMoney(50);
-	}
+     p.addMoney(50);
+ }
 
     }
 
@@ -114,8 +114,8 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    p.pickGetOutOfJailFreeCard();
-	}
+     p.pickGetOutOfJailFreeCard();
+ }
 
     }
 
@@ -126,8 +126,8 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    p.goToJail();
-	}
+     p.goToJail();
+ }
 
     }
 
@@ -136,14 +136,14 @@ public abstract class CommunityChestCard{
         public Card6(int id, String text){
             super(id,text);
         }
-	
-	public void action(Player p){
-	    for (Player p1: CommunityChestCard.getGame().getPlayers())
-		if (p1!=p){
-		    p1.addMoney(-50);
-		    p.addMoney(50);
-		}
-	}
+ 
+ public void action(Player p){
+     for (Player p1: CommunityChestCard.getGame().getPlayers())
+  if (p1!=p){
+      p1.addMoney(-50);
+      p.addMoney(50);
+  }
+ }
 
     }
 
@@ -154,8 +154,8 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    p.addMoney(100);
-	}
+     p.addMoney(100);
+ }
 
     }
 
@@ -166,8 +166,8 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    p.addMoney(20);
-	}
+     p.addMoney(20);
+ }
 
     }
 
@@ -178,12 +178,12 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    for (Player p1: CommunityChestCard.getGame().getPlayers())
+     for (Player p1: CommunityChestCard.getGame().getPlayers())
                 if (p1!=p){
                     p1.addMoney(-10);
                     p.addMoney(10);
                 }
-	}
+ }
 
     }
 
@@ -194,8 +194,8 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    p.add(100);
-	}
+     p.addMoney(100);
+ }
 
     }
 
@@ -206,9 +206,9 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    p.addMoney(-100);
-	    FreeParking.add(100);
-	}
+     p.addMoney(-100);
+     FreeParking.add(100);
+ }
 
     }
 
@@ -219,9 +219,9 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    p.addMoney(-150);
-	    FreeParking.add(150);
-	}
+     p.addMoney(-150);
+     FreeParking.add(150);
+ }
 
     }
 
@@ -232,8 +232,8 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    p.addMoney(25);
-	}
+     p.addMoney(25);
+ }
 
     }
 
@@ -244,13 +244,13 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    int [] x=p.numHousesAndHotels();
-	    int houses=x[0];
-	    int hotels=x[1];
-	    int cost=40*houses+115*hotels;
-	    p.addMoney((-1)*cost);
-	    FreeParking.add(cost);
-	}
+     int [] x=p.numHousesAndHotels();
+     int houses=x[0];
+     int hotels=x[1];
+     int cost=40*houses+115*hotels;
+     p.addMoney((-1)*cost);
+     FreeParking.add(cost);
+ }
 
     }
 
@@ -261,8 +261,8 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    p.addMoney(10);
-	}
+     p.addMoney(10);
+ }
 
     }
 
@@ -273,8 +273,8 @@ public abstract class CommunityChestCard{
         }
 
         public void action(Player p){
-	    p.addMoney(100);
-	}
+     p.addMoney(100);
+ }
 
     }
 
