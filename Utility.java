@@ -30,6 +30,8 @@ public class Utility extends Buyable{
     }
   }
   
+  
+  //For Chance card landing only
   public void land(Player p, boolean b){
     if (isOwned()){
       int rent=10*_dice;
