@@ -17,8 +17,10 @@ public class MonopolyGame{
 	_players = new ArrayList<Player>();
 	Scanner s=new Scanner(System.in);
 	System.out.print(RESET);
-	System.out.println("Monopoly! For up to 6 players");
-	System.out.println("Make sure the terminal is zoomed out enough for the board to fit");
+	System.out.println("[1mMonopoly! For up to 6 players");
+	System.out.println("[1mMake sure you are using this on [4mterminal[0;1m and that it is zoomed out enough for the line below to fit on one line (unless you like messed up ascii maps)");
+	System.out.println("[1m|**********************************************************************************************************************************************************************|");
+	System.out.println("[0m");
 	while (_players.size() < 6){
 	    System.out.print("Type name of this player(or write START to start playing): ");
 	    String name=s.next();
