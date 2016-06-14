@@ -35,7 +35,7 @@ public abstract class Buyable extends Space{
     while (input!="y" && input!="n"){
       System.out.println("Do you want to buy "+toString()+" for "+
                          getPrice()+" Dollars");
-      System.out.println("Enter y or n");
+      System.out.print("Enter y or n: ");
       input=s.next();
     }
     if (input.equals("y")) return true;

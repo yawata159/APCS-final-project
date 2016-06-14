@@ -128,6 +128,7 @@ public class MonopolyGame{
 	    if (jailActionNum == 2){
 		if (p.numGetOutOfJailFreeCards() > 0) {
 		    System.out.println("You use a get out of jail card");
+		    p.useGetOutOfJailFreeCard();
 		    p.exitJail();
 		}
 		else {
@@ -207,17 +208,174 @@ public class MonopolyGame{
 	}
 	//chance:
 	else if (newPosInt == 7 || newPosInt == 22 || newPosInt == 36) {
+	    System.out.println("You take a Chance Card. What could it be?");
+	    int num = (int)(Math.random()*16);
+	    if (num == 0){
+		System.out.println("Advance to Go (Collect $200)");
+		p.setPosition(getBoard().getSpace(0));
+		p.addMoney(200);
+	    }
+	    else if (num == 1){
+		System.out.println("Advance to Illinois Avenue - If you pass Go, collect $200");
+		if (p.getIntPos() > 24) p.addMoney(200);
+		p.setPosition(getBoard().getSpace(24));
+	    }
+	    else if (num == 2){
+		System.out.println("Advance to St. Charles Place - If you pass Go, collect $200");
+		if (p.getIntPos() > 11) p.addMoney(200);
+		p.setPosition(getBoard().getSpace(11));
+	    }
+		    
+	    else if (num == 3){
+		System.out.println("Advance token to nearest Utility.");
+		if ((Math.abs(p.getIntPos()-12))<(Math.abs(p.getIntPos()-28)))
+		    p.setPosition(getBoard().getSpace(12));
+		else p.setPosition(getBoard().getSpace(28));
+	    }
+	    else if (num == 4){
+		System.out.println("Advance token to nearest Railroad");
+		if (p.getIntPos()< 10)
+		    p.setPosition(getBoard().getSpace(5));
+		else if (p.getIntPos()< 20)
+		    p.setPosition(getBoard().getSpace(15));
+		else if (p.getIntPos()< 30)
+		    p.setPosition(getBoard().getSpace(25));
+		else
+		    p.setPosition(getBoard().getSpace(35));
+	    }
+	    else if (num == 5){
+		System.out.println("Bank pays you dividend of $50");
+		p.addMoney(50);
+	    }
+	    else if (num == 6){
+		System.out.println("Get Out of Jail Free Card!");
+		p.pickGetOutOfJailFreeCard();
+	    }
+	    else if (num == 7){
+		System.out.println("Go back 3 spaces");
+		p.setPosition(getBoard().getSpace((p.getIntPos() + 37) %40));
+	    }
+	    else if (num == 8){
+		System.out.println("Go directly to Jail");
+		p.goToJail();
+	    }
+	    else if (num == 9){
+		System.out.println("Make general repairs - For each house pay $25, for each hotel $100");
+		p.addMoney(0-p.numHousesAndHotels()[0]*25 + p.numHousesAndHotels()[1]*100);
+	    }
+	    else if (num == 10){
+		System.out.println("Pay poor tax of $15");
+		p.addMoney(-15);
+	    }
+	    else if (num == 11){
+		System.out.println("Take a trip to Reading Railroad - If you pass Go, collect $200");
+		if (p.getIntPos() > 5) p.addMoney(200);
+		p.setPosition(getBoard().getSpace(5));
+		
+	    }
+	    else if (num == 12){
+		System.out.println("Take a walk on the Boardwalk");
+		p.setPosition(getBoard().getSpace(29));
+	    }
+	    else if (num == 13){
+		System.out.println("You have been leceted Chairman of the Board - Pay each player $50");
+		for (Player play: getPlayers())
+		    if (play != p) play.addMoney(50);
+		p.addMoney(-50*(getPlayers().size()-1));
+	    }
+	    else if (num == 14){
+		System.out.println("Your building loan matures. Collect $150");
+		p.addMoney(150);
+	    }
+	    else if (num == 15){
+		System.out.println("You have won a xrossword competition - COllect $100");
+		p.addMoney(100);
+	    }
 	    
 	}
 
 	//comunity:
 	else if (newPosInt == 2 || newPosInt == 17 || newPosInt == 33) {
-	    
+	    System.out.println("You take a Community Chest Card. What could it be?");
+	    int num = (int)(Math.random()*16);
+	    if (num == 0) {
+		System.out.println("Advance to Go (Collect $200)");
+		p.setPosition(getBoard().getSpace(0));
+		p.addMoney(200);
+	    }
+	    else if (num == 1) {
+		System.out.println("Bank error in your favor - Collect $200");
+		p.addMoney(200);
+	    }
+	    else if (num == 2) {
+		System.out.println("Doctor's fees - Pay $50");
+		p.addMoney(-50);
+	    }
+	    else if (num == 3) {
+		System.out.println("From sale of stock you get $50");
+		p.addMoney(50);
+	    }
+	    else if (num == 4) {
+		System.out.println("Get Out of Jail Free Card!");
+		p.pickGetOutOfJailFreeCard();
+	    }
+	    else if (num == 5) {
+		System.out.println("Go directly to Jail");
+		p.goToJail();
+	    }
+	    else if (num == 6) {
+		System.out.println("Grand Opera Night. Collect $50 from every player");
+		for (Player play: getPlayers())
+		    if (play != p)
+			play.addMoney(-50);
+		p.addMoney(50*(getPlayers().size()-1));
+	    }
+	    else if (num == 7) {
+		System.out.println("Holiday Fund matures - Receive $100");
+		p.addMoney(100);
+	    }
+	    else if (num == 8) {
+		System.out.println("Income tax refund - Collect $20");
+		p.addMoney(20);
+	    }
+	    else if (num == 9) {
+		System.out.println("It is your birthday - Collect $10 from Every Player");
+		for (Player play: getPlayers())
+		    if (play != p)
+			play.addMoney(-10);
+		p.addMoney(10*(getPlayers().size()-1));
+		
+	    }
+	    else if (num == 10) {
+		System.out.println("Life Insurance matures - Collect $100");
+		p.addMoney(100);
+	    }
+	    else if (num == 11) {
+		System.out.println("Pay hospital fees of $100");
+		p.addMoney(-100);
+	    }
+	    else if (num == 12) {
+		System.out.println("Pay school fees of $150");
+		p.addMoney(-150);
+	    }
+	    else if (num == 13) {
+		System.out.println("Receive $25 consultancy fee");
+		p.addMoney(25);
+	    }
+	    else if (num == 14) {
+		System.out.println("You have won second prize in a beauty contest - Collect $10");
+		p.addMoney(10);
+	    }
+	    else if (num == 15) {
+		System.out.println("You inherit $100");
+		p.addMoney(100);
+	    }
+
 	}
 	
 	//buyables:
 	else {
-
+	    
 	}
 	////
       
@@ -262,7 +420,6 @@ public class MonopolyGame{
 	      System.out.println(a.getIntPos());
 	      }
 	*/
-	System.out.println(G.numPeopleWithMoney());
 	while (G.numPeopleWithMoney() != 1) {
 	    System.out.print(RESET);
       
@@ -273,6 +430,7 @@ public class MonopolyGame{
       
 	    //internal crap
 	    Player currPlayer = G.nextPlayer(playerIndex);
+	    playerIndex++;
 	    // add int details of prop money and monopolies'
 	    System.out.println("It is " + currPlayer.name() + "'s turn.");
 	    System.out.println("You have " + currPlayer.money() + " dollars.");

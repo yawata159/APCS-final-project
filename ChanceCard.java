@@ -99,7 +99,6 @@ public abstract class ChanceCard{
       public Card3(int id, String text){
         super(id,text);
       }
-      
     public void action(Player p){
       if ((Math.abs(p.getIntPos()-12))<(Math.abs(p.getIntPos()-28)))
             p.setPosition(ChanceCard.getGame().getBoard().getSpace(12));
@@ -187,7 +186,8 @@ public abstract class ChanceCard{
       }
       
       public void action(Player p){
-        p.setPosition(ChanceCard.getGame().getBoard().getSpace(30));
+        p.setPosition(ChanceCard.getGame().getBoard().getSpace(10));
+	
         p.position().land(p);
     }
     }

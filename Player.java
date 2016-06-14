@@ -95,7 +95,9 @@ public class Player{
   public void pickGetOutOfJailFreeCard(){
     _getOutOfJailFreeCards++;
   }
-  
+    public void useGetOutOfJailFreeCard() {
+	_getOutOfJailFreeCards--;
+    }
   public boolean inJail(){
     return _inJail;
   }
