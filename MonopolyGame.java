@@ -290,7 +290,7 @@ public class MonopolyGame{
 		p.addMoney(150);
 	    }
 	    else if (num == 15){
-		System.out.println("You have won a xrossword competition - COllect $100");
+		System.out.println("You have won a crossword competition - COllect $100");
 		p.addMoney(100);
 	    }
 	    
