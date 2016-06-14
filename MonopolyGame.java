@@ -72,17 +72,12 @@ public class MonopolyGame{
     }
   
   
-    public Player winner() {
+    public int numPeopleWithMoney() {
 	int sum = 0;
-	Player ans = null;
-	for (Player p : _players) {
-	    if (p.money() > 0){
-		sum += 1; 
-		ans = p;
-	    }
-	}
-	if (sum == 1) return ans;
-	return null;
+	for (Player p : _players) 
+	    if (p.money() > 0)
+		sum += 1;	
+	return sum;
     }
   
     public MonopolyBoard getBoard(){
@@ -212,7 +207,7 @@ public class MonopolyGame{
 	}
 	//chance:
 	else if (newPosInt == 7 || newPosInt == 22 || newPosInt == 36) {
-
+	    
 	}
 
 	//comunity:
@@ -249,6 +244,12 @@ public class MonopolyGame{
 	return inJailActions(s, p);
     }
     
+    private Player nextPlayer(int playerIndex) {
+	playerIndex = (playerIndex + 1) % (getPlayers().size()); //cycle through players
+	Player currPlayer = getPlayers().get(playerIndex);
+	if (currPlayer.money() <= 0) return nextPlayer(playerIndex);
+	return currPlayer;
+    }
   
     public static void main(String[] args)  throws FileNotFoundException{
 	MonopolyGame G = new MonopolyGame(); 
@@ -261,8 +262,8 @@ public class MonopolyGame{
 	      System.out.println(a.getIntPos());
 	      }
 	*/
-    
-	while (G.winner() != null) {
+	System.out.println(G.numPeopleWithMoney());
+	while (G.numPeopleWithMoney() != 1) {
 	    System.out.print(RESET);
       
 	    //update players
@@ -271,10 +272,9 @@ public class MonopolyGame{
 	    System.out.println();
       
 	    //internal crap
-	    playerIndex = (playerIndex + 1) % (G.getPlayers().size()); //cycle through players
-	    Player currPlayer = G.getPlayers().get(playerIndex);
-	    System.out.println("It is " + currPlayer.name() + "'s turn.");
+	    Player currPlayer = G.nextPlayer(playerIndex);
 	    // add int details of prop money and monopolies'
+	    System.out.println("It is " + currPlayer.name() + "'s turn.");
 	    System.out.println("You have " + currPlayer.money() + " dollars.");
       
 	    // space action:
@@ -282,7 +282,7 @@ public class MonopolyGame{
       
 	    //end turn
 	}
-	System.out.println(G.winner().name() + " has won the game!!!!!!!!!!!!!!");
+	System.out.println("We have a winner!!!!!!!!!!!!!!");
     
     }
   
