@@ -375,10 +375,43 @@ public class MonopolyGame{
 	
 	//buyables:
 	else {
-	    
+	    if (!((Buyable)(p.position())).isOwned()) {
+		if (((Buyable)(p.position())).buyDialogue()) {
+		    p.buy((Buyable)(getBoard().getSpace(newPosInt)));
+		    System.out.println("You are now the owner of " + getBoard().getSpace(newPosInt) + "!");
+		}
+		else {
+		    System.out.println("That's Fine. I guess someone else will get it :(");
+		}
+	    }
+	    else {
+		Player owner = ((Buyable)(getBoard().getSpace(newPosInt))).owner();
+		Buyable place = (Buyable)(getBoard().getSpace(newPosInt));
+		System.out.println(getBoard().getSpace(newPosInt) + " is owned by " + owner.name());
+
+		if (newPosInt % 5 == 0) { //railroads
+		    int rent = ((Railroad)(place)).rent(owner.railroadsOwned());
+		    System.out.println("The rent is " + rent);
+		    p.payMoney(rent, owner);
+		}
+		else if (newPosInt == 12 || newPosInt == 28) { //utilities
+		    int dice = dice1 + dice2;
+		    int rent = ((Utility)(place)).rent(dice);
+		    System.out.println("The rent is " + rent);
+		    p.payMoney(rent,owner);
+		}
+		else { //property
+		    int rent = ((Property)(place)).rent();
+		    System.out.println("The rent is " + rent);
+		    p.payMoney(rent, ((Buyable)(getBoard().getSpace(newPosInt))).owner());
+		}
+	    }
 	}
 	////
-      
+	
+	//buy houses or hotel  and promtp
+    
+	    
 	System.out.print("Type anything to end your turn: ");
 	s.next();
       

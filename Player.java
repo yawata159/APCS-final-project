@@ -168,6 +168,7 @@ public class Player{
       _railroadsOwned++;
     if (b instanceof Utility)
       _utilitiesOwned++;
+    addMoney(0-b.getPrice());
   }
   
   public void buyHouse(Property p){

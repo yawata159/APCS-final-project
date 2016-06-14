@@ -31,15 +31,12 @@ public abstract class Buyable extends Space{
   
   public boolean buyDialogue(){
     Scanner s=new Scanner(System.in);
-    String input="";
-    while (input!="y" && input!="n"){
-      System.out.println("Do you want to buy "+toString()+" for "+
-                         getPrice()+" Dollars");
-      System.out.print("Enter y or n: ");
-      input=s.next();
-    }
-    if (input.equals("y")) return true;
-    else return false;
+    System.out.println("Do you want to buy "+toString()+" for " + getPrice()+" Dollars?");
+    System.out.print("Enter y or n: ");
+    String input=s.next();
+    if (input.equalsIgnoreCase("y")) return true;
+    else if (input.equalsIgnoreCase("n")) return false;
+    else return buyDialogue();
   }
-  
+    
 }
