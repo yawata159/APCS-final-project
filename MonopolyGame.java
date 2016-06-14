@@ -531,6 +531,12 @@ public class MonopolyGame{
 	return currPlayer;
     }
   
+    private String winner() {
+	for (Player p: getPlayers()) 
+	    if (p.money() > 0) return p.name();
+	return null;
+    }
+    
     public static void main(String[] args)  throws FileNotFoundException{
 	MonopolyGame G = new MonopolyGame(); 
 	Scanner s = new Scanner(System.in);
@@ -562,7 +568,7 @@ public class MonopolyGame{
       
 	    //end turn
 	}
-	System.out.println("We have a winner!!!!!!!!!!!!!!");
+	System.out.println(G.winner() + " is the winner!!!!!!!!!!!!!!");
     
     }
   
