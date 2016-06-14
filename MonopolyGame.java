@@ -168,11 +168,17 @@ public class MonopolyGame{
 		}
 	    }
 	}
+	int oldPosInt = p.position().getIntPos();
 	int newPosInt = (p.position().getIntPos() + dice1 +dice2) % 40;
 	Space newPos = getBoard().getSpace(newPosInt); 
 	p.setPosition(newPos);
 	System.out.println("You landed on " + newPos.getName());
-
+	
+	if (newPosInt - oldPosInt < 0) {
+	    System.out.println("Passed Go. You get $200");
+	    p.addMoney(200);
+	}
+	
 	//debug:
 	/*      System.out.println(newPos.getIntPos());
 		System.out.println(p);
@@ -390,22 +396,24 @@ public class MonopolyGame{
 		Player owner = ((Buyable)(getBoard().getSpace(newPosInt))).owner();
 		Buyable place = (Buyable)(getBoard().getSpace(newPosInt));
 		System.out.println(getBoard().getSpace(newPosInt) + " is owned by " + owner.name());
-
-		if (newPosInt % 5 == 0) { //railroads
-		    int rent = ((Railroad)(place)).rent(owner.railroadsOwned());
-		    System.out.println("The rent is " + rent);
-		    p.payMoney(rent, owner);
-		}
-		else if (newPosInt == 12 || newPosInt == 28) { //utilities
-		    int dice = dice1 + dice2;
-		    int rent = ((Utility)(place)).rent(dice);
-		    System.out.println("The rent is " + rent);
-		    p.payMoney(rent,owner);
-		}
-		else { //property
-		    int rent = ((Property)(place)).rent();
-		    System.out.println("The rent is " + rent);
-		    p.payMoney(rent, ((Buyable)(getBoard().getSpace(newPosInt))).owner());
+		if (p == owner) {System.out.println("You own this property.");}
+		else {
+		    if (newPosInt % 5 == 0) { //railroads
+			int rent = ((Railroad)(place)).rent(owner.railroadsOwned());
+			System.out.println("The rent is " + rent);
+			p.payMoney(rent, owner);
+		    }
+		    else if (newPosInt == 12 || newPosInt == 28) { //utilities
+			int dice = dice1 + dice2;
+			int rent = ((Utility)(place)).rent(dice);
+			System.out.println("The rent is " + rent);
+			p.payMoney(rent,owner);
+		    }
+		    else { //property
+			int rent = ((Property)(place)).rent();
+			System.out.println("The rent is " + rent);
+			p.payMoney(rent, ((Buyable)(getBoard().getSpace(newPosInt))).owner());
+		    }
 		}
 	    }
 	}
