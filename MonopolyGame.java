@@ -24,7 +24,7 @@ public class MonopolyGame{
 	    String name=s.next();
       
 	    if (name.equalsIgnoreCase("START"))  {
-		if (_players.size() == 1) System.out.println("Not enough Players");
+		if (_players.size() <= 1) System.out.println("Not enough Players");
 		else break;
 	    }
       
@@ -408,16 +408,95 @@ public class MonopolyGame{
 	    }
 	}
 	////
-	
+	System.out.println("You now have " + p.money());
+	System.out.println("And own: " + listProperties(p));
 	//buy houses or hotel  and promtp
-    
+	//update monopolies
+	int[] monop = new int[8];
+	boolean anyMonop = false;
+	for (int i = 0; i < 8; i++)
+	    if (p.checkMonopoly(i)) {
+		p.monopolies()[i] = true;
+		anyMonop = true;
+	    }
+	    else
+		p.monopolies()[i] =false;
+	
+	
+	if (anyMonop && wantHouses(s,p)) {
+	    //buy houses:
+	    ArrayList<Integer> ownedPropertyIds = new ArrayList<Integer>();
+	    for (Buyable b: p.getOwned()) 
+		if (b instanceof Property && ((Property)b).isMonopoly())
+		    ownedPropertyIds.add(b.getIntPos());
 	    
+	    System.out.println("You can build houses on: " + listMonopolyProperties(ownedPropertyIds));
+	    int id = monopolyPropertyId(s,p, ownedPropertyIds);
+	    boolean buyHouse = yesOrNo(s,p, (Property)(getBoard().getSpace(id)));
+	    //ACUAL HOUSE BUY:
+	    if (buyHouse) {
+		p.buyHouse((Property)(getBoard().getSpace(id)));
+		System.out.println("You have bought a house on " + getBoard().getSpace(id));
+		System.out.println("You now have " + p.money());
+	    }
+	    else {
+		System.out.println("Maybe next time...");
+	    }
+	}
+	
+	if (p.money() <= 0) {
+	    System.out.println("You don't have any money to spend. You're out of the game");
+	    return;
+	}
+	
 	System.out.print("Type anything to end your turn: ");
 	s.next();
-      
-
+	
+	
     }
-  
+    private static boolean yesOrNo(Scanner s, Player p, Property k) {
+	System.out.println("Buying a house will cost you " + k.housePrice() + ".Proceed or no (y,n)?");
+	String resp = s.next();
+	if (resp.equalsIgnoreCase("y")) return true;
+	else if (resp.equalsIgnoreCase("n")) return false;
+	return yesOrNo(s,p,k);
+    }
+	
+    private static String listMonopolyProperties(ArrayList<Integer> L) {
+	String ans = "";
+	for (int i = 0 ; i < L.size()-1;i++) 
+	    ans += L.get(i) + ", ";
+	ans += L.get(L.size()-1);
+	return ans;
+    }
+
+    private static int monopolyPropertyId(Scanner s, Player p, ArrayList<Integer> idList) {
+	
+	System.out.print("Type the id of the property you want to build houses on: ");
+	int id = s.nextInt();
+	for (Integer x: idList) 
+	    if (id == x) return id;
+	return monopolyPropertyId(s,p,idList);
+	
+    }
+
+    private static String listProperties(Player p) {
+	String ans = "";
+	for (Buyable b: p.getOwned()) {
+	    ans += b + "(id: " + b.getIntPos() + ")" + "\n";
+	}
+	if (ans.equals("")) return "(nothing)";
+	return ans;
+    }
+    
+    private static boolean wantHouses(Scanner s, Player p) {
+	System.out.print("Do you want to buy houses/hotels for your monopoly");
+	String resp = s.next();
+	if (resp.equalsIgnoreCase("y")) return true;
+	if (resp.equalsIgnoreCase("n")) return false;
+	else return wantHouses(s,p);
+    }
+
     private static int inJailActions(Scanner s, Player p) {
 	String response = s.next();
 	String[] actions = {"DOUBLES", "FINE", "CARD"};

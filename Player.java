@@ -33,6 +33,10 @@ public class Player{
     _jailDoubles = 0;
   }
   
+    public ArrayList<Buyable> getOwned() {
+	return _owned;
+    }
+
   public String name(){
     return _name;
   }
